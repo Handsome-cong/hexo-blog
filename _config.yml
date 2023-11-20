@@ -3,9 +3,9 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo
-subtitle: ''
-description: ''
+title: Handsome
+subtitle: '这个博客大概是会更新下去的吧'
+description: '某个不知名的帅哥'
 keywords:
 author: 钱思远
 language: zh-CN
@@ -14,7 +14,7 @@ timezone: 'Asia/Shanghai'
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
 url: https://handsome-cong.github.io
-permalink: :year/:month/:day/:title/
+permalink: :hash/
 permalink_defaults:
 pretty_urls:
   trailing_index: true # Set to false to remove trailing 'index.html' from permalinks
