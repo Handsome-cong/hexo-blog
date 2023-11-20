@@ -208,7 +208,7 @@ noticeOutdate:
 footer:
   owner:
     enable: true
-    since: 2020
+    since: 2023
   custom_text:
   copyright: true # Copyright of theme and framework
 
@@ -607,7 +607,7 @@ site_verification:
 
 theme_color:
   enable: true
-  main: "#1f1f1f1f"
+  main: "#dd21b3de"
   paginator: "#00c4b6"
   button_hover: "#FF7242"
   text_selection: "#00c4b6"
@@ -617,9 +617,9 @@ theme_color:
   code_foreground: "#F47466"
   code_background: "rgba(27, 31, 35, .05)"
   toc_color: "#00c4b6"
-  blockquote_padding_color: "#1f1f1f1f"
-  blockquote_background_color: "#1f1f1f1f"
-  scrollbar_color: "#1f1f1f1f"
+  blockquote_padding_color: "#dd21b3de"
+  blockquote_background_color: "#dd21b3de"
+  scrollbar_color: "#dd21b3de"
   meta_theme_color_light: "ffffff"
   meta_theme_color_dark: "#0d0d0d"
 
@@ -645,7 +645,7 @@ text_align_justify: false
 background:
 
 # Footer Background
-footer_bg: false
+footer_bg: true
 
 # Add mask to header or footer (为 header 或 footer 添加黑色半透遮罩)
 mask:
@@ -761,7 +761,7 @@ hr_icon:
 
 # the subtitle on homepage (主頁subtitle)
 subtitle:
-  enable: false
+  enable: true
   # Typewriter Effect (打字效果)
   effect: true
   # Customize typed.js (配置typed.js)

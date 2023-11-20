@@ -4,5 +4,6 @@ fetch(Url)
     .then(data => {
         const file_url = data.map(item => item.file_url)[0]
         document.getElementById("page-header").style.backgroundImage = `url(${file_url})`
+        document.getElementById("footer").style.backgroundImage = `url(${file_url})`
     })
     .catch(error => console.error(error))
