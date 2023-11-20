@@ -119,9 +119,6 @@ Obsidian: [官网](https://obsidian.md/)
 	3. 转到存储obsidian笔记的Gibhub仓库页面，点击Settings->Secrets and variables->Actions，添加一个secret，secret名为`BLOG_TOKEN`（与上述yaml文件内容相匹配即可），值为刚刚保存的token。
 	4. 将本地的obsidian仓库改动推送到GitHub，如无意外，已经可以在Actions页面看到有操作正在执行。执行完后hexo仓库的Action也会被激活，自动执行构建和发布工作。稍等片刻就能看到obsidian的笔记作为博客发布到GitHub Page上了。
 
-> [!Attention] 注意事项
-> 上述yaml文件假定了obsidian仓库下Hexo目录内的内容才是要发布至博客的文章，且_每次操作会将原本Hexo仓库下source/\_posts目录的内容删除_来保证笔记和博客的一致性。可以自行修改"**Remove old files**"和"**Copy note to blog**"这两步的操作来满足自己的需求。
-
 至此，已实现obsidian笔记->Hexo博客的自动发布。
 
 ### 附件的资源管理
@@ -135,3 +132,5 @@ Hexo的后者明显与obsidian的每一条规则都不兼容，使用极其不�
 
 ## 注意事项
 Obsidian有自己的wiki链接语法，且这些语法无法被Hexo正确解析，因此在需要发布到博客的笔记中，应该尽量使用原生的markdown语法。
+
+上述yaml文件假定了obsidian仓库下Hexo目录内的内容才是要发布至博客的文章，且*每次操作会将原本Hexo仓库下source/\_posts目录的内容删除*来保证笔记和博客的一致性。可以自行修改"**Remove old files**"和"**Copy note to blog**"这两步的操作来满足自己的需求。
