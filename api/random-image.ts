@@ -35,9 +35,9 @@ async function GetUrlFromKonachan(): Promise<string | null> {
 
 async function TryGetImageUrl(): Promise<string | null> {
     let url = await GetUrlFromDanbooru();
-    if (url == null) {
-        url = await GetUrlFromKonachan();
-    }
+    // if (url == null) {
+    //     url = await GetUrlFromKonachan();
+    // }
     return url;
 }
 
