@@ -9,6 +9,6 @@ export default async function handler(
     console.log(`imageUrl: ${imageUrl}`);
 
     response.status(200)
-        .json({ file_url: imageUrl, })
-        .setHeader('Access-Control-Allow-Origin', '*');
+        .setHeader('Access-Control-Allow-Origin', '*')
+        .json({ file_url: imageUrl, });
 }

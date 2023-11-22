@@ -39,7 +39,7 @@ export async function TryGetImageUrl(): Promise<string | null> {
     return url;
 }
 
-export async function TryGetImageBlog(): Promise<Blob | null> {
+export async function TryGetImageBlob(): Promise<Blob | null> {
     let blob: Blob | null = null;
     const url = await TryGetImageUrl();
     if (url != null) {
