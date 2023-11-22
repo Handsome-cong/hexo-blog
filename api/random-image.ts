@@ -5,7 +5,7 @@ async function GetUrlFromDanbooru(): Promise<string | null> {
     const Url = "https://danbooru.donmai.us/posts.json?tags=score:50.. rating:g random:5 mpixels:2.5.. ratio:16:9..";
     const fileUrl = await fetch(Url)
         .then(response => response.json())
-        .then(data => data[0].fileUrl)
+        .then(data => data[0].file_url)
         .catch(error => { console.error(error); return null; });
 
     return fileUrl;
