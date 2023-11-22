@@ -12,12 +12,12 @@ export default async function handler(
         const response = await fetch(url);
         blob = await response.blob();
     }
-    
+    const blobBuffer = await blob?.arrayBuffer();
 
     response.status(200)
         .setHeader('Content-Type', `image/${fileExtension}`)
         .setHeader('Access-Control-Allow-Origin', '*')
-        .write(blob?.stream());
+        .write(blobBuffer);
     response.end();
 
 }
