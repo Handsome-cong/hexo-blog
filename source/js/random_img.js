@@ -8,7 +8,7 @@
 //     })
 //     .catch(error => console.error(error))
 
-const ApiUrl = "https://www.handsome-cong.com/api/random-image"
+const ApiUrl = "https://www.handsome-cong.fun/api/random-image"
 fetch(ApiUrl)
     .then(response => response.json())
     .then(data => {
