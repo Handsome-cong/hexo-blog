@@ -59,9 +59,9 @@ Obsidian: [官网](https://obsidian.md/)
 3. 将vault内容复制至刚刚Clone下来的git仓库内。
 4. 在git仓库内打开obsidian
 5. 安装obsidian插件[Obsidian Git](https://github.com/denolehov/obsidian-git)。
-	![image.png](https://raw.githubusercontent.com/Handsome-cong/hexo-pic-bed/main/image/20231120163739.png?token=ARWIVJUA4PNZ2PCGPXBVS4DFLMNQ6)
+	![image.png](https://picgo.handsome-cong.fun/Gallery/hexo/images/20231120163739.png)
 6. 对插件进行配置。
-	![image.png](https://raw.githubusercontent.com/Handsome-cong/hexo-pic-bed/main/image/20231120164041.png?token=ARWIVJTOWRCCF65XSZWY7B3FLMN4M)
+	![image.png](https://picgo.handsome-cong.fun/Gallery/hexo/images/20231120164041.png)
 7. 提交git。
 
 到此为止，已经实现用Github托管Obsidian笔记。
