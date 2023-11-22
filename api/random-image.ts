@@ -19,7 +19,6 @@ async function GetUrlFromKonachan(): Promise<string | null> {
         .then(data => data[0].jpeg_url)
         .catch(error => { console.error(error); return null; });
 
-    console.log(jpegUrl);
     const jpegResponse = await fetch(jpegUrl);
     const jpegBlob = await jpegResponse.blob();
 
@@ -35,10 +34,10 @@ async function GetUrlFromKonachan(): Promise<string | null> {
 
 async function TryGetImageUrl(): Promise<string | null> {
     let url: string | null = null;
-    GetUrlFromDanbooru().then(SetUrl);
-    GetUrlFromKonachan().then(SetUrl);
+    const promise1 = GetUrlFromDanbooru().then(SetUrl);
+    const promise2 = GetUrlFromKonachan().then(SetUrl);
 
-    await Promise.all([GetUrlFromDanbooru(), GetUrlFromKonachan()]);
+    await Promise.all([promise1, promise2]);
 
     return url;
     
