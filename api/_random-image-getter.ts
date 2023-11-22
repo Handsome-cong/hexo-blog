@@ -38,14 +38,3 @@ export async function TryGetImageUrl(): Promise<string | null> {
     }
     return url;
 }
-
-export async function TryGetImageBlob(): Promise<Blob | null> {
-    let blob: Blob | null = null;
-    const url = await TryGetImageUrl();
-    if (url != null) {
-        const response = await fetch(url);
-        blob = await response.blob();
-    }
-
-    return blob;
-}

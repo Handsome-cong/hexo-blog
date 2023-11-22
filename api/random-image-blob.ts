@@ -1,15 +1,23 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { TryGetImageBlob } from './_random-image-getter';
+import { TryGetImageUrl } from './_random-image-getter';
 
 export default async function handler(
     request: VercelRequest,
     response: VercelResponse,
 ) {
-    const imageBlob = await TryGetImageBlob();
-
+    let blob: Blob | null = null;
+    const url = await TryGetImageUrl();
+    const fileExtension = url?.split('.').pop();
+    if (url != null) {
+        const response = await fetch(url);
+        blob = await response.blob();
+    }
+    
 
     response.status(200)
-        .setHeader('Content-Type', 'image/jpeg')
+        .setHeader('Content-Type', `image/${fileExtension}`)
         .setHeader('Access-Control-Allow-Origin', '*')
-        .send(imageBlob);
+        .write(blob);
+    response.end();
+
 }
