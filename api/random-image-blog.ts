@@ -8,5 +8,8 @@ export default async function handler(
     const imageBlob = await TryGetImageBlog();
 
 
-    response.status(200).send(imageBlob);
+    response.status(200)
+        .send(imageBlob)
+        .setHeader('Content-Type', 'image/jpeg')
+        .setHeader('Access-Control-Allow-Origin', '*');
 }

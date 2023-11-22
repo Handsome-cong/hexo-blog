@@ -8,10 +8,7 @@ export default async function handler(
     const imageUrl = await TryGetImageUrl();
     console.log(`imageUrl: ${imageUrl}`);
 
-    response.status(200).json({
-        body: request.body,
-        query: request.query,
-        cookies: request.cookies,
-        file_url: imageUrl,
-    });
+    response.status(200)
+        .json({ file_url: imageUrl, })
+        .setHeader('Access-Control-Allow-Origin', '*');
 }
