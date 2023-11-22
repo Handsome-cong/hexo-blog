@@ -17,7 +17,7 @@ export default async function handler(
     response.status(200)
         .setHeader('Content-Type', `image/${fileExtension}`)
         .setHeader('Access-Control-Allow-Origin', '*')
-        .write(blob);
+        .write(blob?.stream());
     response.end();
 
 }
