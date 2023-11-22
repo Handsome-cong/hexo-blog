@@ -1,4 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
+import { run } from 'node:test';
 
 async function GetUrlFromDanbooru(): Promise<string | null> {
     const Url = encodeURI("https://danbooru.donmai.us/posts.json?tags=score:50.. rating:g random:1 mpixels:2.5.. ratio:16:9..");
@@ -33,19 +34,11 @@ async function GetUrlFromKonachan(): Promise<string | null> {
 }
 
 async function TryGetImageUrl(): Promise<string | null> {
-    let url: string | null = null;
-    const promise1 = GetUrlFromDanbooru().then(SetUrl);
-    const promise2 = GetUrlFromKonachan().then(SetUrl);
-
-    await Promise.all([promise1, promise2]);
-
-    return url;
-    
-    function SetUrl(result: string | null) {
-        if (url === null && result !== null) {
-            url = result;
-        }
+    let url = await GetUrlFromDanbooru();
+    if (url == null) {
+        url = await GetUrlFromKonachan();
     }
+    return url;
 }
 
 export default async function handler(
