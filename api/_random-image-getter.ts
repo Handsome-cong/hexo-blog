@@ -70,13 +70,15 @@ class RemoteImage {
         this.jpegSize = jpegUint8Array.length;
         if (jpegUint8Array.length > this.threshold) {
             console.log(`Image size: ${this.fileSize} bytes, Jpeg size: ${jpegUint8Array.length}, threshold: ${this.threshold} bytes`);
-            let quality = this.threshold / jpegUint8Array.length * 100;
+            let quality = this.threshold / jpegUint8Array.length;
+            quality = Math.sqrt(quality) * 100;
             quality = Math.min(quality, 100);
             quality = Math.max(quality, 1);
             quality = Math.floor(quality);
             console.log(`Compression ratio: ${quality}`);
             const compressedImageBuffer = await sharp(jpegUint8Array).jpeg({ quality: quality }).toBuffer();
             jpegUint8Array = new Uint8Array(compressedImageBuffer);
+            this.quality = quality;
         }
         this.jpegSizeCompressed = jpegUint8Array.length;
         this.compressedRatio = this.jpegSizeCompressed / this.jpegSize;
