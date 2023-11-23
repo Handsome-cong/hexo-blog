@@ -57,7 +57,7 @@ class RemoteImage {
         this.jpegSize = jpegUint8Array.length;
         if (jpegUint8Array.length > this.threshold) {
             console.log(`Image size: ${this.fileSize} bytes, Jpeg size: ${jpegUint8Array.length}, threshold: ${this.threshold} bytes`);
-            const compressionRatio = this.threshold / jpegUint8Array.length;
+            const compressionRatio = this.threshold / jpegUint8Array.length * 100;
             console.log(`Compression ratio: ${compressionRatio}`);
             const compressedImageBuffer = await sharp(this.url).jpeg({ quality: compressionRatio }).toBuffer();
             jpegUint8Array = new Uint8Array(compressedImageBuffer);
