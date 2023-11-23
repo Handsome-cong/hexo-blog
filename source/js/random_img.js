@@ -8,12 +8,32 @@
 //     })
 //     .catch(error => console.error(error))
 
-const ApiUrl = "https://www.handsome-cong.fun/api/random-image"
-fetch(ApiUrl)
+const JsonApiUrl = "https://www.handsome-cong.fun/api/random-image"
+const BlobApiUrl = "https://www.handsome-cong.fun/api/random-image-blob"
+
+fetch(JsonApiUrl)
     .then(response => response.json())
-    .then(data => {
-        const file_url = data.url
-        document.getElementById("page-header").style.backgroundImage = `url(${file_url})`
-        document.getElementById("footer").style.backgroundImage = `url(${file_url})`
+    .then(async data => {
+        const file_url = data.url;
+        let imageBlob = await fetch(file_url)
+            .then(r => r.blob())
+            .catch(error => {
+                console.log(error);
+                console.log("Trying blob api...");
+                return fetch(BlobApiUrl)
+                    .then(r => r.blob())
+                    .catch(error => {
+                        console.error(error);
+                        console.error("Failed to fetch image blob.");
+                        return null;
+                    })
+            });
+
+        if (imageBlob == null) {
+            return;
+        }
+        let imageUrl = URL.createObjectURL(imageBlob);
+        document.getElementById("page-header").style.backgroundImage = `url(${imageUrl})`
+        document.getElementById("footer").style.backgroundImage = `url(${imageUrl})`
     })
     .catch(error => console.error(error));
