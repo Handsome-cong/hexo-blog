@@ -1,7 +1,64 @@
+import { VercelRequest } from '@vercel/node';
 import sharp from 'sharp';
 
-async function GetImageFromDanbooru(): Promise<RemoteImage | null> {
-    const Url = "https://danbooru.donmai.us/posts.json?tags=score:50.. rating:g random:1 mpixels:2.5.. ratio:16:9..";
+export enum ImageRating {
+    General = "g",
+    Safe = "s",
+    Questionable = "q",
+    Explicit = "e",
+}
+
+type DanbooruRating = ImageRating;
+
+enum KonachanRating {
+    Safe = "s",
+    Questionable = "q",
+    Explicit = "e",
+}
+
+export class RatingGroup {
+    public constructor(
+        public readonly imageRating: ImageRating[] = [ImageRating.General],
+    ) { }
+
+    public ToDanbooruRatingStr(): string {
+        let result = this.imageRating.join(",");
+        if (this.imageRating.length == 0)
+            result = ImageRating.General;
+        return result;
+    }
+
+    public ToKonachanRatingStr(): string {
+        let ratings: string[] = [];
+        let addedSafe = false;
+        this.imageRating.forEach(rating => {
+            if (rating == ImageRating.General || rating == ImageRating.Safe) {
+                if (!addedSafe)
+                    ratings.push(ImageRating.Safe);
+                addedSafe = true;
+            }
+            else {
+                ratings.push(rating);
+            }
+        });
+        let result = ratings.join(",");
+        if (this.imageRating.length == 0)
+            result = KonachanRating.Safe;
+        return result;
+    }
+
+    public static FromRequest(request: VercelRequest): RatingGroup {
+
+        const ratingStr = request.query?.rating as string | undefined;
+
+        const ratings = ratingStr?.split(',');
+        const ratingGroup = ratings != undefined ? new RatingGroup(ratings.map(rating => rating as ImageRating)) : new RatingGroup();
+        return ratingGroup;
+    }
+}
+
+async function GetImageFromDanbooru(rating: RatingGroup = new RatingGroup()): Promise<RemoteImage | null> {
+    const Url = `https://danbooru.donmai.us/posts.json?tags=score:50.. rating:${rating.ToDanbooruRatingStr()} random:1 mpixels:2.5.. ratio:16:9..`;
     const image = await fetch(Url)
         .then(response => response.json())
         .then(data => new RemoteImage(data[0].file_url, data[0].file_ext, data[0].file_size))
@@ -10,8 +67,8 @@ async function GetImageFromDanbooru(): Promise<RemoteImage | null> {
     return image;
 }
 
-async function GetImageFromKonachan(): Promise<RemoteImage | null> {
-    const Url = 'https://konachan.com/post.json?limit=1&tags=rating:safe score:100.. order:random';
+async function GetImageFromKonachan(rating: RatingGroup = new RatingGroup()): Promise<RemoteImage | null> {
+    const Url = `https://konachan.com/post.json?limit=1&tags=rating:${rating.ToKonachanRatingStr} score:100.. order:random`;
     const image = await fetch(Url)
         .then(response => response.json())
         .then(data => new RemoteImage(data[0].jpeg_url, 'jpg', data[0].jpeg_file_size > 0 ? data[0].jpeg_file_size : data[0].file_size))
@@ -20,16 +77,16 @@ async function GetImageFromKonachan(): Promise<RemoteImage | null> {
     return image;
 }
 
-export async function TryGetImage(): Promise<RemoteImage | null> {
-    let image = await GetImageFromDanbooru();
+export async function TryGetImage(rating: RatingGroup = new RatingGroup()): Promise<RemoteImage | null> {
+    let image = await GetImageFromDanbooru(rating);
     if (image == null) {
-        image = await GetImageFromKonachan();
+        image = await GetImageFromKonachan(rating);
     }
     if (image?.fileExtension != "jpg" && image?.fileExtension != "jpeg" && image?.fileExtension != "png") {
-        image = await TryGetImage();
+        image = await TryGetImage(rating);
     }
     if (image?.url == undefined) {
-        image = await TryGetImage();
+        image = await TryGetImage(rating);
     }
     return image;
 }

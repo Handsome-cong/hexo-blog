@@ -1,13 +1,14 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { TryGetImage } from './_random-image-getter';
 import { EnricheHeader } from './_header-enricher';
+import { ImageRating, RatingGroup, TryGetImage } from './_random-image-getter';
 
 export default async function handler(
     request: VercelRequest,
     response: VercelResponse,
 ) {
     EnricheHeader(request, response);
-    const image = await TryGetImage();
+    const ratingGroup = RatingGroup.FromRequest(request);
+    const image = await TryGetImage(ratingGroup);
     if (image != null) {
         const imageData = await image.GetJpegUint8Array();
         console.log(JSON.stringify(image));
