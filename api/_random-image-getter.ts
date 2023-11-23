@@ -31,6 +31,8 @@ export async function TryGetImage(): Promise<RemoteImage | null> {
 class RemoteImage {
     public jpegSize: number = 0;
     public jpegSizeCompressed: number = 0;
+    public quality: number = 100;
+    public compressedRatio: number = 1;
     private readonly threshold: number = 4194304;
 
     constructor(
@@ -53,16 +55,21 @@ class RemoteImage {
         if (this.fileExtension != 'jpg' && this.fileExtension != 'jpeg') {
             let newImageBuffer = await sharp(jpegUint8Array).jpeg().toBuffer();
             jpegUint8Array = new Uint8Array(newImageBuffer);
+            this.quality = 80;
         }
         this.jpegSize = jpegUint8Array.length;
         if (jpegUint8Array.length > this.threshold) {
             console.log(`Image size: ${this.fileSize} bytes, Jpeg size: ${jpegUint8Array.length}, threshold: ${this.threshold} bytes`);
-            const compressionRatio = this.threshold / jpegUint8Array.length * 100;
-            console.log(`Compression ratio: ${compressionRatio}`);
-            const compressedImageBuffer = await sharp(this.url).jpeg({ quality: compressionRatio }).toBuffer();
+            let quality = this.threshold / jpegUint8Array.length * 100;
+            quality = Math.min(quality, 100);
+            quality = Math.max(quality, 1);
+            quality = Math.floor(quality);
+            console.log(`Compression ratio: ${quality}`);
+            const compressedImageBuffer = await sharp(this.url).jpeg({ quality: quality }).toBuffer();
             jpegUint8Array = new Uint8Array(compressedImageBuffer);
         }
         this.jpegSizeCompressed = jpegUint8Array.length;
+        this.compressedRatio = this.jpegSizeCompressed / this.jpegSize;
         return jpegUint8Array;
     }
 }
