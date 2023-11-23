@@ -8,6 +8,7 @@ export default async function handler(
     const image = await TryGetImage();
     if (image != null) {
         const imageData = await image.GetJpegUint8Array();
+        console.log(JSON.stringify(image));
 
         response.status(200)
             .setHeader('Content-Type', `image/jpeg`)

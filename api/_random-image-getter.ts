@@ -29,6 +29,8 @@ export async function TryGetImage(): Promise<RemoteImage | null> {
 }
 
 class RemoteImage {
+    public jpegSize: number = 0;
+
     constructor(
         public readonly url: string,
         public readonly fileExtension: string,
@@ -50,6 +52,7 @@ class RemoteImage {
             const newImageBuffer = await sharp(rawArrayBuffer).jpeg().toBuffer();
             jpegUint8Array = new Uint8Array(newImageBuffer);
         }
+        this.jpegSize = jpegUint8Array.length;
         return jpegUint8Array;
     }
 }
