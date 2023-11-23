@@ -11,31 +11,51 @@
 const JsonApiUrl = "https://www.handsome-cong.fun/api/random-image"
 const BlobApiUrl = "https://www.handsome-cong.fun/api/random-image-blob"
 
-const blobApiPromise = fetch(BlobApiUrl)
+let currentBlob = null;
+
+fetch(BlobApiUrl)
     .then(r => r.blob())
+    .then(imageBlob => {
+        console.log("Try set image from blob api.");
+        TrySetElementStyle(imageBlob);
+    })
     .catch(error => {
-        console.error(error);
-        console.error("Failed to fetch image blob.");
+        console.log(error);
+        console.log("Failed to fetch image blob from blob api.");
         return null;
     })
 
-fetch(JsonApiUrl)
+const jsonApiPromise = fetch(JsonApiUrl)
     .then(response => response.json())
     .then(async data => {
         const file_url = data.url;
         let imageBlob = await fetch(file_url)
             .then(r => r.blob())
+            .then(imageBlob => {
+                console.log("Try set image from json api.");
+                TrySetElementStyle(imageBlob);
+            })
             .catch(error => {
                 console.log(error);
-                console.log("Trying blob api...");
-                return blobApiPromise;
+                console.log("Failed to fetch image blob by url from json api.");
+                return null;
             });
-
-        if (imageBlob == null) {
-            return;
-        }
-        let imageUrl = URL.createObjectURL(imageBlob);
-        document.getElementById("page-header").style.backgroundImage = `url(${imageUrl})`
-        document.getElementById("footer").style.backgroundImage = `url(${imageUrl})`
+        return imageBlob;
     })
-    .catch(error => console.error(error));
+    .catch(error => {
+        console.log(error);
+        console.log("Failed to fetch image url from json api.")
+        return null;
+    });
+
+
+function TrySetElementStyle(imageBlob) {
+    if (imageBlob == null || currentBlob != null) {
+        return;
+    }
+    currentBlob = imageBlob;
+    console.log("Image loaded.");
+    let imageUrl = URL.createObjectURL(currentBlob);
+    document.getElementById("page-header").style.backgroundImage = `url(${imageUrl})`
+    document.getElementById("footer").style.backgroundImage = `url(${imageUrl})`
+}
