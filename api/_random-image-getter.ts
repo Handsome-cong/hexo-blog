@@ -65,7 +65,7 @@ class RemoteImage {
             quality = Math.max(quality, 1);
             quality = Math.floor(quality);
             console.log(`Compression ratio: ${quality}`);
-            const compressedImageBuffer = await sharp(this.url).jpeg({ quality: quality }).toBuffer();
+            const compressedImageBuffer = await sharp(jpegUint8Array).jpeg({ quality: quality }).toBuffer();
             jpegUint8Array = new Uint8Array(compressedImageBuffer);
         }
         this.jpegSizeCompressed = jpegUint8Array.length;
