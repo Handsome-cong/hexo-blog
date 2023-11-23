@@ -5,5 +5,5 @@ export default async function handler(
     response: VercelResponse,
 ) {
     response.status(200)
-    .json(request);
+    .json(request.headers);
 }
