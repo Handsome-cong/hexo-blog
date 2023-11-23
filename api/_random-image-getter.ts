@@ -55,6 +55,7 @@ class RemoteImage {
         if (this.fileExtension != 'jpg' && this.fileExtension != 'jpeg') {
             if (this.fileExtension != 'png') {
                 console.log(`May be unsupported file extension: ${this.fileExtension}`);
+                console.log(JSON.stringify(this));
             }
             let newImageBuffer = await sharp(jpegUint8Array).jpeg().toBuffer();
             jpegUint8Array = new Uint8Array(newImageBuffer);
