@@ -53,6 +53,9 @@ class RemoteImage {
         const rawArrayBuffer = await blob.arrayBuffer();
         let jpegUint8Array = new Uint8Array(rawArrayBuffer);
         if (this.fileExtension != 'jpg' && this.fileExtension != 'jpeg') {
+            if (this.fileExtension != 'png') {
+                console.log(`May be unsupported file extension: ${this.fileExtension}`);
+            }
             let newImageBuffer = await sharp(jpegUint8Array).jpeg().toBuffer();
             jpegUint8Array = new Uint8Array(newImageBuffer);
             this.quality = 80;
