@@ -25,6 +25,12 @@ export async function TryGetImage(): Promise<RemoteImage | null> {
     if (image == null) {
         image = await GetImageFromKonachan();
     }
+    if (image?.fileExtension != "jpg" && image?.fileExtension != "jpeg" && image?.fileExtension != "png") {
+        image = await TryGetImage();
+    }
+    if (image?.url == undefined) {
+        image = await TryGetImage();
+    }
     return image;
 }
 
