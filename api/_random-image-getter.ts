@@ -49,7 +49,7 @@ class RemoteImage {
         const rawArrayBuffer = await blob.arrayBuffer();
         let jpegUint8Array = new Uint8Array(rawArrayBuffer);
         if(this.fileExtension != 'jpg' && this.fileExtension != 'jpeg') {
-            const newImageBuffer = await sharp(rawArrayBuffer).jpeg().toBuffer();
+            const newImageBuffer = await sharp(this.url).jpeg().toBuffer();
             jpegUint8Array = new Uint8Array(newImageBuffer);
         }
         this.jpegSize = jpegUint8Array.length;
