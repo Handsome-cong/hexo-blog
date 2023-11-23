@@ -9,15 +9,21 @@ export default async function handler(
     const url = await TryGetImageUrl();
     const fileExtension = url?.split('.').pop();
     if (url != null) {
-        const response = await fetch(url);
-        blob = await response.blob();
-    }
-    const blobBuffer = await blob?.arrayBuffer();
+        const blobResponse = await fetch(url);
+        blob = await blobResponse.blob();
 
-    response.status(200)
-        .setHeader('Content-Type', `image/${fileExtension}`)
-        .setHeader('Access-Control-Allow-Origin', '*')
-        .write(blobBuffer);
-    response.end();
+        const blobBuffer = await blob.arrayBuffer();
+        const blobArray = new Uint8Array(blobBuffer);
+    
+        response.status(200)
+            .setHeader('Content-Type', `image/${fileExtension}`)
+            .setHeader('Access-Control-Allow-Origin', '*')
+            .write(blobArray);
+        response.end();
+    }
+    else {
+        response.status(500).send('Failed to get image');
+        return;
+    }
 
 }
