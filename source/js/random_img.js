@@ -11,6 +11,14 @@
 const JsonApiUrl = "https://www.handsome-cong.fun/api/random-image"
 const BlobApiUrl = "https://www.handsome-cong.fun/api/random-image-blob"
 
+const blobApiPromise = fetch(BlobApiUrl)
+    .then(r => r.blob())
+    .catch(error => {
+        console.error(error);
+        console.error("Failed to fetch image blob.");
+        return null;
+    })
+
 fetch(JsonApiUrl)
     .then(response => response.json())
     .then(async data => {
@@ -20,13 +28,7 @@ fetch(JsonApiUrl)
             .catch(error => {
                 console.log(error);
                 console.log("Trying blob api...");
-                return fetch(BlobApiUrl)
-                    .then(r => r.blob())
-                    .catch(error => {
-                        console.error(error);
-                        console.error("Failed to fetch image blob.");
-                        return null;
-                    })
+                return blobApiPromise;
             });
 
         if (imageBlob == null) {
