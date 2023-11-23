@@ -6,7 +6,7 @@ export default async function handler(
     response: VercelResponse,
 ) {
     const image = await TryGetImage();
-    console.log(`imageUrl: ${image?.url}`);
+    console.log(JSON.stringify(image));
 
     response.status(200)
         .setHeader('Access-Control-Allow-Origin', '*')
