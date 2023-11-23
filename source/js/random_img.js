@@ -25,7 +25,7 @@ fetch(BlobApiUrl)
         return null;
     })
 
-const jsonApiPromise = fetch(JsonApiUrl)
+fetch(JsonApiUrl)
     .then(response => response.json())
     .then(async data => {
         const file_url = data.url;
