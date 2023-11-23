@@ -12,7 +12,7 @@ const ApiUrl = "https://www.handsome-cong.fun/api/random-image"
 fetch(ApiUrl)
     .then(response => response.json())
     .then(data => {
-        const file_url = data.file_url
+        const file_url = data.url
         document.getElementById("page-header").style.backgroundImage = `url(${file_url})`
         document.getElementById("footer").style.backgroundImage = `url(${file_url})`
     })

@@ -1,14 +1,14 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { TryGetImageUrl } from './_random-image-getter';
+import { TryGetImage } from './_random-image-getter';
 
 export default async function handler(
     request: VercelRequest,
     response: VercelResponse,
 ) {
-    const imageUrl = await TryGetImageUrl();
-    console.log(`imageUrl: ${imageUrl}`);
+    const image = await TryGetImage();
+    console.log(`imageUrl: ${image?.url}`);
 
     response.status(200)
         .setHeader('Access-Control-Allow-Origin', '*')
-        .json({ file_url: imageUrl, });
+        .json(image);
 }

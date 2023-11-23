@@ -1,30 +1,55 @@
+import sharp from 'sharp';
 
-async function GetUrlFromDanbooru(): Promise<string | null> {
+async function GetImageFromDanbooru(): Promise<RemoteImage | null> {
     const Url = "https://danbooru.donmai.us/posts.json?tags=score:50.. rating:g random:1 mpixels:2.5.. ratio:16:9..";
-    const fileUrl = await fetch(Url)
+    const image = await fetch(Url)
         .then(response => response.json())
-        .then(data => data[0].file_url)
+        .then(data => new RemoteImage(data[0].file_url, data[0].file_ext, data[0].file_size))
         .catch(error => { console.error(error); return null; });
 
-    return fileUrl;
+    return image;
 }
 
-async function GetUrlFromKonachan(): Promise<string | null> {
-    const Url = encodeURI('https://konachan.com/post.json?limit=1&tags=rating:safe score:100.. order:random');
-
-    // 发送新请求并获取响应
-    const jpegUrl = await fetch(Url)
+async function GetImageFromKonachan(): Promise<RemoteImage | null> {
+    const Url = 'https://konachan.com/post.json?limit=1&tags=rating:safe score:100.. order:random';
+    const image = await fetch(Url)
         .then(response => response.json())
-        .then(data => data[0].jpeg_url)
+        .then(data => new RemoteImage(data[0].jpeg_url, 'jpg', data[0].jpeg_file_size > 0 ? data[0].jpeg_file_size : data[0].file_size))
         .catch(error => { console.error(error); return null; });
 
-    return jpegUrl;
+    return image;
 }
 
-export async function TryGetImageUrl(): Promise<string | null> {
-    let url = await GetUrlFromDanbooru();
-    if (url == null) {
-        url = await GetUrlFromKonachan();
+export async function TryGetImage(): Promise<RemoteImage | null> {
+    let image = await GetImageFromDanbooru();
+    if (image == null) {
+        image = await GetImageFromKonachan();
     }
-    return url;
+    return image;
+}
+
+class RemoteImage {
+    constructor(
+        public readonly url: string,
+        public readonly fileExtension: string,
+        public readonly fileSize: number,
+    ) { }
+
+    public async GetBlob(): Promise<Blob> {
+        const blobResponse = await fetch(this.url);
+        const blob = await blobResponse.blob();
+        return blob;
+    }
+
+    public async GetJpegUint8Array(): Promise<Uint8Array> {
+        
+        const blob = await this.GetBlob();
+        const rawArrayBuffer = await blob.arrayBuffer();
+        let jpegUint8Array = new Uint8Array(rawArrayBuffer);
+        if(this.fileExtension != 'jpg' && this.fileExtension != 'jpeg') {
+            const newImageBuffer = await sharp(rawArrayBuffer).jpeg().toBuffer();
+            jpegUint8Array = new Uint8Array(newImageBuffer);
+        }
+        return jpegUint8Array;
+    }
 }
