@@ -3,8 +3,8 @@ publish: true
 title: EnTT源码解读【1】：EnTT中的Entity
 date: 2023-12-05 16:46
 updated: 星期二 5日 十二月 2023 16:46:36
-tags:
-categories:
+tags: EnTT
+categories: 源码解读
 keywords:
 description:
 top_img: https://cdn.donmai.us/original/95/91/959142ad556665861f75fd0fe20f1ea5.png
@@ -60,6 +60,7 @@ using id_type = ENTT_ID_TYPE;
 
 ## EnTT 中 entity 的构成
 > 此处代码均位于 src/entt/entity/entity.hpp
+
 ### "entity" 和 "verison"
 EnTT 中，entity 被分为两部分，"entity" 和 "version"，他们存于同一个整型中，用掩码加以区分。
 
