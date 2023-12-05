@@ -3,17 +3,17 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Handsome
+title: 聪哥哥的博客♪(^∇^*)
 subtitle: '今天，你写代码了吗？'
 description: '某个不知名的帅哥'
 keywords:
-author: 钱思远
+author: Handsome-cong
 language: zh-CN
 timezone: 'Asia/Shanghai'
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: https://handsome-cong.github.io
+url: https://handsome-cong.fun
 permalink: :hash/
 permalink_defaults:
 pretty_urls:
