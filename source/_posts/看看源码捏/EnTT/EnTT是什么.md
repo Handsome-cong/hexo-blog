@@ -32,4 +32,4 @@ abcjs:
 GitHub地址: https://github.com/skypjack/entt
 
 ## TOC
-- [EnTT中的Entity](EnTT中的Entity.md)
+- [EnTT中的Entity](../bbcb98354992)
