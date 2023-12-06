@@ -33,3 +33,4 @@ GitHub地址: https://github.com/skypjack/entt
 
 ## TOC
 - [EnTT中的Entity](../bbcb98354992)
+- [EnTT中的Component](../bfaf6a4c6f46)
