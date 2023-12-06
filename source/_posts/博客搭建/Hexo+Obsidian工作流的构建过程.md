@@ -1,27 +1,28 @@
 ---
+publish: true
 title: Hexo+Obsidian工作流的构建过程
 date: 2023-11-20 15:46
 updated: 星期一 20日 十一月 2023 15:46:57
-tags:
-categories:
-keywords:
-description:
+tags: 
+categories: 
+keywords: 
+description: 
 top_img: https://cdn.donmai.us/original/04/1d/041da15cdfd73ae42728547c20e28ff8.jpg
-comments:
-cover:
-toc:
-toc_number:
-toc_style_simple:
-copyright:
-copyright_author:
-copyright_author_href:
-copyright_url:
-copyright_info:
-mathjax:
-katex:
-aplayer:
-highlight_shrink:
-aside:
+comments: 
+cover: https://cdn.donmai.us/original/04/1d/041da15cdfd73ae42728547c20e28ff8.jpg
+toc: 
+toc_number: 
+toc_style_simple: 
+copyright: 
+copyright_author: 
+copyright_author_href: 
+copyright_url: 
+copyright_info: 
+mathjax: 
+katex: 
+aplayer: 
+highlight_shrink: 
+aside: 
 abcjs:
 ---
 # Hexo+Obsidian工作流的构建过程

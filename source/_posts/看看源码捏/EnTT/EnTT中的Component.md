@@ -25,15 +25,15 @@ highlight_shrink:
 aside:
 abcjs:
 ---
-# EnTT中的Component
-## Component是什么
-**Component**是 ECS 的三个核心成员之一，它代表了附加在Entity上的*数据*。
+# EnTT 中的 Component
+## Component 是什么
+**Component**是 ECS 的三个核心成员之一，它代表了附加在 Entity 上的*数据*。
 
-一般来说Component应该是纯数据类型，不包含任何行为。
+一般来说 Component 应该是纯数据类型，不包含任何行为。
 
-## EnTT中的Component
+## EnTT 中的 Component
 ### component_traits
-EnTT中没有为Component指定一个公共的基类，只是用模板做了限制。
+EnTT 中没有为 Component 指定一个公共的基类，只是用模板做了限制。
 
 ```cpp
 // src/entt/entity/component.hpp
@@ -52,12 +52,12 @@ struct component_traits {
 };
 ```
 
-在`static_assert`那行，EnTT限定了Component的类型必须为*不含cv限定符的基本或类（结构体）类型*。
+在 `static_assert` 那行，EnTT 限定了 Component 的类型必须为*不含 cv 限定符的基本或类（结构体）类型*。
 
-同时EnTT提供了两个可选的配置项`in_place_delete`和`page_size`。
+同时 EnTT 提供了两个可选的配置项 `in_place_delete` 和 `page_size`。
 
 ### in_place_delete
-对于`in_place_delete`，定义如下：
+对于 `in_place_delete`，定义如下：
 ```cpp
 // src/entt/entity/component.hpp
 
@@ -72,17 +72,17 @@ struct in_place_delete<Type, std::enable_if_t<Type::in_place_delete>>
     : std::true_type {};
 ```
 
-默认情况下，对于同时具有移动构造和移动赋值能力的类型，`in_place_delete`为`false`。
+默认情况下，对于同时具有移动构造和移动赋值能力的类型，`in_place_delete` 为 `false`。
 
-用户可以通过在自己的Component类型中添加如下静态成员来指定`in_place_delete`的值：
+用户可以通过在自己的 Component 类型中添加如下静态成员来指定 `in_place_delete` 的值：
 ```cpp
 static constexpr bool in_place_delete = true;
 ```
 
-需要注意的是，*自定义的`in_place_delete`只有在默认情况下是`false`，然后手动指定为`true`的时候才有意义，对于默认就为`true`的情况，指定为`false`不会有任何效果。*
+需要注意的是，*自定义的 `in_place_delete` 只有在默认情况下是 `false`，然后手动指定为 `true` 的时候才有意义，对于默认就为 `true` 的情况，指定为 `false` 不会有任何效果。*
 
 ### page_size
-对于`page_size`，定义如下：
+对于 `page_size`，定义如下：
 ```cpp
 // src/entt/config/config.h
 
@@ -109,12 +109,12 @@ struct page_size<Type, std::void_t<decltype(Type::page_size)>>
     : std::integral_constant<std::size_t, Type::page_size> {};
 ```
 
-- `ENTT_PACKED_PAGE`：默认的页大小，1024字节
-- `ENTT_ETO_TYPE`：用于空类型优化，如果指定的Component类型为空类型，则将`page_size`设为0，可以通过宏定义`ENTT_NO_ETO`来关闭
+- `ENTT_PACKED_PAGE`：默认的页大小，1024 字节
+- `ENTT_ETO_TYPE`：用于空类型优化，如果指定的 Component 类型为空类型，则将 `page_size` 设为 0，可以通过宏定义 `ENTT_NO_ETO` 来关闭
 
-用户可以通过在自己的Component类型中添加如下静态成员来指定`page_size`的值：
+用户可以通过在自己的 Component 类型中添加如下静态成员来指定 `page_size` 的值：
 ```cpp
 static constexpr std::size_t page_size = 1024;
 ```
 
-对于指定了自定义`page_size`的空类型，以用户指定的值为准。
+对于指定了自定义 `page_size` 的空类型，以用户指定的值为准。
