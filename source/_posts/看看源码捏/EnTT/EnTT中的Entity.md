@@ -3,31 +3,32 @@ publish: true
 title: EnTT源码解读【1】：EnTT中的Entity
 date: 2023-12-05 16:46
 updated: 星期二 5日 十二月 2023 16:46:36
-tags: EnTT
+tags:
+  - EnTT
 categories: 源码解读
-keywords:
-description:
-top_img: https://cdn.donmai.us/original/95/91/959142ad556665861f75fd0fe20f1ea5.png
-comments:
-cover:
-toc:
-toc_number:
-toc_style_simple:
-copyright:
-copyright_author:
-copyright_author_href:
-copyright_url:
-copyright_info:
-mathjax:
-katex:
-aplayer:
-highlight_shrink:
-aside:
+keywords: 
+description: 
+top_img: https://user-images.githubusercontent.com/1812216/103550016-90752280-4ea8-11eb-8667-12ed2219e137.png
+comments: 
+cover: https://user-images.githubusercontent.com/1812216/103550016-90752280-4ea8-11eb-8667-12ed2219e137.png
+toc: 
+toc_number: 
+toc_style_simple: 
+copyright: 
+copyright_author: 
+copyright_author_href: 
+copyright_url: 
+copyright_info: 
+mathjax: 
+katex: 
+aplayer: 
+highlight_shrink: 
+aside: 
 abcjs:
 ---
 # EnTT 中的 Entity
 ## Entity 是什么
-Entity 是 ECS 的三个核心成员之一，它代表了游戏或应用中的独立个体。
+**Entity** 是 ECS 的三个核心成员之一，它代表了游戏或应用中的独立个体。
 
 Entity 本身是个很抽象的概念，既非数据，也无行为，它更像是一个把数据组织起来的索引。
 
