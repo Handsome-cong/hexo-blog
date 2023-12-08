@@ -3,8 +3,7 @@ publish: true
 title: EnTT源码解读【1】：EnTT中的Entity
 date: 2023-12-05 16:46
 updated: 星期二 5日 十二月 2023 16:46:36
-tags:
-  - EnTT
+tags: EnTT
 categories: 源码解读
 keywords: 
 description: 
@@ -28,7 +27,7 @@ abcjs:
 ---
 # EnTT 中的 Entity
 ## Entity 是什么
-**Entity** 是 ECS 的三个核心成员之一，它代表了游戏或应用中的独立个体。
+**Entity** 是 ECS 的三个核心成员之一，它*代表了游戏或应用中的独立个体*。
 
 Entity 本身是个很抽象的概念，既非数据，也无行为，它更像是一个把数据组织起来的索引。
 
@@ -59,16 +58,21 @@ enum class entity : id_type {};
 using id_type = ENTT_ID_TYPE;
 ```
 
-## EnTT 中 entity 的构成
-> 此处代码均位于 src/entt/entity/entity.hpp
+用户可以使用自己的 Entity 类型，而不是上述的 `entity`。对于自定义的 Entity 类型，必须满足如下条件：
+- 如果是 `enum class`，必须指定其类型为 `std::uint32_t` 或 `std::uint64_t`
+- 如果是 `class`，必须包含一个 `entity_type` 类型成员，并将其指定为 `std::uint32_t` 或 `std::uint64_t` 的别名
 
+## EnTT 中 entity 的构成
 ### "entity" 和 "verison"
 EnTT 中，entity 被分为两部分，"entity" 和 "version"，他们存于同一个整型中，用掩码加以区分。
 
 - "entity" 部分代表这个 entity 的身份，可以理解为真正的 id
-- "version" 部分则代表了这个 entity 是否还“活着”，能否被使用
+- "version" 部分则代表了这个 entity 是否还“活着”，能否被使用，它被用于 `sparse_set` 的删除操作，具体见 Sparse Set
+
+- [ ] TODO: 添加链接
 
 ```cpp
+// src/entt/entity/entity.hpp
 
 namespace internal {
 
@@ -124,9 +128,37 @@ struct entt_traits<std::uint64_t> {
 
 并且代码中只对 `std::uint32_t` 和 `std::uint64_t` 做了处理，因此只能使用这两个类型。
 
+### 分页
+```cpp
+// src/entt/config/config.h
+
+#ifndef ENTT_SPARSE_PAGE
+#    define ENTT_SPARSE_PAGE 4096
+#endif
+
+// src/entt/entity/entity.hpp
+
+template<typename Type>
+struct entt_traits: basic_entt_traits<internal::entt_traits<Type>> {
+    /*! @brief Base type. */
+    using base_type = basic_entt_traits<internal::entt_traits<Type>>;
+    /*! @brief Page size, default is `ENTT_SPARSE_PAGE`. */
+    static constexpr std::size_t page_size = ENTT_SPARSE_PAGE;
+};
+```
+
+默认情况下，Entity 的存储以 4096 为一页，可以自定义，但必须为 2 的幂次，且大于任何一个可能的 Component 类型以及 Entity 类型的大小。
+
+> EnTT 中的取模操作是作者用位运算实现的，函数名为 `fast_mod`，限制就是模数必须为 2 的幂次，其核心代码就一行：
+> ```cpp
+> value & (mod - 1u)
+> ```
+
+- [ ] TODO: 存储相关内容，见 sparse_set
 ### 一些实用方法
 
 ```cpp
+// src/entt/entity/entity.hpp
 
 /**
  * @brief Common basic entity traits implementation.
@@ -191,6 +223,8 @@ public:
 
 ### null 和 tombstone
 ```cpp
+// src/entt/entity/entity.hpp
+
 /*! @brief Null object for all identifiers.  */
 struct null_t {
     template<typename Entity>

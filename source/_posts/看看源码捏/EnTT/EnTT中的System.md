@@ -3,8 +3,8 @@ publish: true
 title: EnTT源码解读【3】：EnTT中的"System"
 date: 2023-12-06 15:18
 updated: 星期三 6日 十二月 2023 15:18:30
-tags:
-categories:
+tags: EnTT
+categories: 源码解读
 keywords:
 description:
 top_img: https://user-images.githubusercontent.com/1812216/103550016-90752280-4ea8-11eb-8667-12ed2219e137.png
@@ -27,7 +27,7 @@ abcjs:
 ---
 # EnTT 中的 "System"
 ## System 是什么
-**System** 是 ECS 的三个核心成员之一，它包含了 ECS 的逻辑部分，用于处理 Component 的数据。
+**System** 是 ECS 的三个核心成员之一，它*包含了 ECS 的逻辑部分，用于处理 Component 的数据*。
 
 一般来说，与 Component 相对的，System 仅包含逻辑，不包含数据（状态）。
 

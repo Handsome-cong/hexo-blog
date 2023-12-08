@@ -27,7 +27,7 @@ abcjs:
 ---
 # EnTT 中的 Component
 ## Component 是什么
-**Component**是 ECS 的三个核心成员之一，它代表了附加在 Entity 上的*数据*。
+**Component**是 ECS 的三个核心成员之一，它*代表了附加在 Entity 上的数据*。
 
 一般来说 Component 应该是纯数据类型，不包含任何行为。
 
