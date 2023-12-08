@@ -56,7 +56,6 @@ struct component_traits {
 在 `static_assert` 那行，EnTT 限定了 Component 的类型必须为*不含 cv 限定符的基本或类（结构体）类型*。
 
 同时 EnTT 提供了两个可选的配置项 `in_place_delete` 和 `page_size`。
-
 ### in_place_delete
 对于 `in_place_delete`，定义如下：
 ```cpp
@@ -81,6 +80,8 @@ static constexpr bool in_place_delete = true;
 ```
 
 需要注意的是，*自定义的 `in_place_delete` 只有在默认情况下是 `false`，然后手动指定为 `true` 的时候才有意义，对于默认就为 `true` 的情况，指定为 `false` 不会有任何效果。*
+
+- [ ] TODO: `in_place_delete` 的意义
 
 ### page_size
 对于 `page_size`，定义如下：

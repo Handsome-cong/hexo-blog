@@ -28,7 +28,7 @@ abcjs:
 ---
 # EnTT 中的 Sparse Set
 ## 相关链接
-来自 EnTT 作者的文章 [ECS back and forth (skypjack.github.io)](https://skypjack.github.io/2020-08-02-ecs-baf-part-9/)
+{% btn 'https://skypjack.github.io/2020-08-02-ecs-baf-part-9/',来自 EnTT 作者的文章,far fa-hand-point-right %}
 ## 什么是 Sparse Set
 **Sparse Set**，即稀疏集，是一个用于存储不同值的数据类型，功能上与 Hash Set 类似，都可以高效率地进行增删查。
 > 为什么只有增删查，没有“改”？  
