@@ -68,6 +68,9 @@ using packed_container_type = std::vector<Entity, Allocator>;
 
 `sparse[i]` 分配过内存后，会全部设为 `entt::null`。
 
+它们的关系如图所示，其中的 "null" 为 `entt::null`：  
+![EnTT中的Sparse Set relationship.excalidraw](https://picgo.handsome-cong.fun/Gallery/hexo/images/EnTT%E4%B8%AD%E7%9A%84Sparse%20Set%20relationship.excalidraw.svg)
+
 ### 数据映射关系
 假设已经存入了一个 Entity，取其 "entity" 部分，记为 `id`，那么，便可以通过类似如下的方法获取到 `packed` 中的 Entity：
 ```cpp

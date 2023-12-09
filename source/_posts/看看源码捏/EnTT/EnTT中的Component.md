@@ -111,7 +111,7 @@ struct page_size<Type, std::void_t<decltype(Type::page_size)>>
     : std::integral_constant<std::size_t, Type::page_size> {};
 ```
 
-- `ENTT_PACKED_PAGE`：默认的页大小，1024 字节
+- `ENTT_PACKED_PAGE`：默认的页大小，1024 个
 - `ENTT_ETO_TYPE`：用于空类型优化，如果指定的 Component 类型为空类型，则将 `page_size` 设为 0，可以通过宏定义 `ENTT_NO_ETO` 来关闭
 
 用户可以通过在自己的 Component 类型中添加如下静态成员来指定 `page_size` 的值：
