@@ -60,7 +60,7 @@ payload[index / page_size][index % page_size]
 
 和 Entity 索引的存放方式非常类似，见 [EnTT中的Sparse Set](../c312304b9cec#数据映射关系)。
 
-`page_size` 可自定义，具体见 [EnTT中的Component](../bfaf6a4c6f46#page_size)。
+`page_size` 可自定义，具体见 [EnTT中的Component](../bfaf6a4c6f46#page-size)。
 
 `payload` 的示意图：  
 ![EnTT中的Storage payload.excalidraw](https://picgo.handsome-cong.fun/Gallery/hexo/images/EnTT%E4%B8%AD%E7%9A%84Storage%20payload.excalidraw.svg)
