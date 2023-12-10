@@ -67,7 +67,7 @@ using id_type = ENTT_ID_TYPE;
 EnTT 中，entity 被分为两部分，"entity" 和 "version"，他们存于同一个整型中，用掩码加以区分。
 
 - "entity" 部分代表这个 entity 的身份，可以理解为真正的 id
-- "version" 部分则代表了这个 entity 是否还“活着”，能否被使用，它被用于 `sparse_set` 的删除操作，具体见 [EnTT中的Sparse Set](../c312304b9cec)
+- "version" 部分则代表了这个 entity 是否还“活着”，能否被使用，它被用于 `sparse_set` 的删除操作，具体见 [EnTT中的Sparse Set](../EnTT中的Sparse Set)
 
 ```cpp
 // src/entt/entity/entity.hpp
