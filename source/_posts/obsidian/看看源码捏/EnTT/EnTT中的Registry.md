@@ -46,7 +46,7 @@ using registry = basic_registry<>;
 
 `registry` 默认使用自带的 `entity` 作为 Entity 的类型，`std::allocator<entity>` 作为内存分配器。
 
-用户通过自定义 `basic_registry` 的模板参数来指定自己的 Entity 类型，合法的 Entity 类型见 [EnTT中的Entity > EnTT 中的 Entity 是什么](../EnTT中的Entity#EnTT 中的 Entity 是什么\源码解读)。
+用户通过自定义 `basic_registry` 的模板参数来指定自己的 Entity 类型，合法的 Entity 类型见 [EnTT中的Entity > EnTT 中的 Entity 是什么](../../源码解读/EnTT中的Entity#EnTT 中的 Entity 是什么)。
 
 ## registry 提供的功能
 ### create

@@ -57,9 +57,9 @@ class basic_storage: public basic_sparse_set<Entity, typename std::allocator_tra
 payload[index / page_size][index % page_size]
 ```
 
-和 Entity 索引的存放方式非常类似，见 [EnTT中的Sparse Set > 数据映射关系](../EnTT中的Sparse Set#数据映射关系)。
+和 Entity 索引的存放方式非常类似，见 [EnTT中的Sparse Set > 数据映射关系](../../源码解读/EnTT中的Sparse Set#数据映射关系)。
 
-`page_size` 可自定义，具体见 [EnTT中的Component > page_size](../EnTT中的Component#page_size)。
+`page_size` 可自定义，具体见 [EnTT中的Component > page_size](../../源码解读/EnTT中的Component#page_size)。
 
 `payload` 的示意图：  
 ![EnTT中的Storage payload.excalidraw](https://picgo.handsome-cong.fun/Gallery/hexo/images/EnTT%E4%B8%AD%E7%9A%84Storage%20payload.excalidraw.svg)
