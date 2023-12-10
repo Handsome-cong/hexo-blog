@@ -3,7 +3,7 @@ publish: true
 title: EnTT源码解读【2】：EnTT中的Component
 date: 2023-12-05 21:45
 tags: EnTT
-categories: 源码解读
+categories: blog
 series: EnTT源码解读
 keywords:
 description:

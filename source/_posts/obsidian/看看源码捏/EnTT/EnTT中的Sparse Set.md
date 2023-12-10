@@ -3,7 +3,7 @@ publish: true
 title: EnTT源码解读【4】：EnTT中的Sparse Set
 date: 2023-12-06 18:56
 tags: EnTT
-categories: 源码解读
+categories: blog
 series: EnTT源码解读
 keywords:
 description:
@@ -27,6 +27,7 @@ abcjs:
 ---
 # EnTT 中的 Sparse Set
 ## 相关链接
+{% btn 'https://skypjack.github.io/2020-08-02-ecs-baf-part-9/',来自 EnTT 作者的文章,far fa-hand-point-right %}
 ## 什么是 Sparse Set
 **Sparse Set**，即稀疏集，是一个用于存储不同值的数据类型，功能上与 Hash Set 类似，都可以高效率地进行增删查。
 > 为什么只有增删查，没有“改”？  
