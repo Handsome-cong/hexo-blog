@@ -115,3 +115,6 @@ class basic_storage<Entity, Entity, Allocator>
 其功能基本就是套皮 `basic_sparse_set`，但通过这个 `basic_storage` 创建 Entity 会优先复用已经删除的 Entity。
 
 同样不需要 `payload`。
+
+## 限制
+在[EnTT中的Component](../../blog/EnTT中的Component#in_place_delete)中提到过，Component可以指定`in_place_delete`为`true`，这种Component所分配给的Entity在`basic_sparse_set`中存储时也必须使用`in_place_delete`来保证`packed`中的索引和`payload`相互对应。

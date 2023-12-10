@@ -80,7 +80,7 @@ static constexpr bool in_place_delete = true;
 
 需要注意的是，*自定义的 `in_place_delete` 只有在默认情况下是 `false`，然后手动指定为 `true` 的时候才有意义，对于默认就为 `true` 的情况，指定为 `false` 不会有任何效果。*
 
-- [ ] TODO: `in_place_delete` 的意义
+其作用见[EnTT中的Storage > 限制](../../blog/EnTT中的Storage#限制)
 
 ### page_size
 对于 `page_size`，定义如下：
