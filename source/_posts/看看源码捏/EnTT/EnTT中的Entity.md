@@ -2,9 +2,9 @@
 publish: true
 title: EnTT源码解读【1】：EnTT中的Entity
 date: 2023-12-05 16:46
-updated: 星期二 5日 十二月 2023 16:46:36
 tags: EnTT
 categories: 源码解读
+series: EnTT源码解读
 keywords: 
 description: 
 top_img: https://user-images.githubusercontent.com/1812216/103550016-90752280-4ea8-11eb-8667-12ed2219e137.png
@@ -67,9 +67,7 @@ using id_type = ENTT_ID_TYPE;
 EnTT 中，entity 被分为两部分，"entity" 和 "version"，他们存于同一个整型中，用掩码加以区分。
 
 - "entity" 部分代表这个 entity 的身份，可以理解为真正的 id
-- "version" 部分则代表了这个 entity 是否还“活着”，能否被使用，它被用于 `sparse_set` 的删除操作，具体见 Sparse Set
-
-- [ ] TODO: 添加链接
+- "version" 部分则代表了这个 entity 是否还“活着”，能否被使用，它被用于 `sparse_set` 的删除操作，具体见 [EnTT中的Sparse Set](../c312304b9cec)
 
 ```cpp
 // src/entt/entity/entity.hpp
@@ -153,8 +151,6 @@ struct entt_traits: basic_entt_traits<internal::entt_traits<Type>> {
 > ```cpp
 > value & (mod - 1u)
 > ```
-
-- [ ] TODO: 存储相关内容，见 sparse_set
 ### 一些实用方法
 
 ```cpp

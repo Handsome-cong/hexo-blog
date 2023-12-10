@@ -2,9 +2,9 @@
 publish: true
 title: EnTT源码解读【4】：EnTT中的Sparse Set
 date: 2023-12-06 18:56
-updated: 星期三 6日 十二月 2023 18:56:02
-tags:
-categories:
+tags: EnTT
+categories: 源码解读
+series: EnTT源码解读
 keywords:
 description:
 top_img: https://user-images.githubusercontent.com/1812216/103550016-90752280-4ea8-11eb-8667-12ed2219e137.png
@@ -27,7 +27,7 @@ abcjs:
 ---
 # EnTT 中的 Sparse Set
 ## 相关链接
-来自 EnTT 作者的文章 [ECS back and forth (skypjack.github.io)](https://skypjack.github.io/2020-08-02-ecs-baf-part-9/)
+{% btn 'https://skypjack.github.io/2020-08-02-ecs-baf-part-9/',来自 EnTT 作者的文章,far fa-hand-point-right %}
 ## 什么是 Sparse Set
 **Sparse Set**，即稀疏集，是一个用于存储不同值的数据类型，功能上与 Hash Set 类似，都可以高效率地进行增删查。
 > 为什么只有增删查，没有“改”？  
@@ -66,6 +66,9 @@ using packed_container_type = std::vector<Entity, Allocator>;
 而且，`packed` 中存储也不一定就是真正的 Entity，某些情况下，会存储一个指向自身另一个位置的下标。
 
 `sparse[i]` 分配过内存后，会全部设为 `entt::null`。
+
+它们的关系如图所示，其中的 "null" 为 `entt::null`：  
+![EnTT中的Sparse Set relationship.excalidraw](https://picgo.handsome-cong.fun/Gallery/hexo/images/EnTT%E4%B8%AD%E7%9A%84Sparse%20Set%20relationship.excalidraw.svg)
 
 ### 数据映射关系
 假设已经存入了一个 Entity，取其 "entity" 部分，记为 `id`，那么，便可以通过类似如下的方法获取到 `packed` 中的 Entity：

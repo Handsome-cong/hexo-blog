@@ -2,9 +2,9 @@
 publish: true
 title: EnTT源码解读【2】：EnTT中的Component
 date: 2023-12-05 21:45
-updated: 星期二 5日 十二月 2023 21:45:47
 tags: EnTT
 categories: 源码解读
+series: EnTT源码解读
 keywords:
 description:
 top_img: https://user-images.githubusercontent.com/1812216/103550016-90752280-4ea8-11eb-8667-12ed2219e137.png
@@ -55,7 +55,6 @@ struct component_traits {
 在 `static_assert` 那行，EnTT 限定了 Component 的类型必须为*不含 cv 限定符的基本或类（结构体）类型*。
 
 同时 EnTT 提供了两个可选的配置项 `in_place_delete` 和 `page_size`。
-
 ### in_place_delete
 对于 `in_place_delete`，定义如下：
 ```cpp
@@ -80,6 +79,8 @@ static constexpr bool in_place_delete = true;
 ```
 
 需要注意的是，*自定义的 `in_place_delete` 只有在默认情况下是 `false`，然后手动指定为 `true` 的时候才有意义，对于默认就为 `true` 的情况，指定为 `false` 不会有任何效果。*
+
+- [ ] TODO: `in_place_delete` 的意义
 
 ### page_size
 对于 `page_size`，定义如下：
@@ -109,7 +110,7 @@ struct page_size<Type, std::void_t<decltype(Type::page_size)>>
     : std::integral_constant<std::size_t, Type::page_size> {};
 ```
 
-- `ENTT_PACKED_PAGE`：默认的页大小，1024 字节
+- `ENTT_PACKED_PAGE`：默认的页大小，1024 个
 - `ENTT_ETO_TYPE`：用于空类型优化，如果指定的 Component 类型为空类型，则将 `page_size` 设为 0，可以通过宏定义 `ENTT_NO_ETO` 来关闭
 
 用户可以通过在自己的 Component 类型中添加如下静态成员来指定 `page_size` 的值：
