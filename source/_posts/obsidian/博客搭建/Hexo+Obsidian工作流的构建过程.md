@@ -7,9 +7,9 @@ tags:
 categories: 
 keywords: 
 description: 
-top_img: https://www.handsome-cong.fun/api/random-image-blob
+top_img: https://cdn.donmai.us/original/04/1d/041da15cdfd73ae42728547c20e28ff8.jpg
 comments: 
-cover: https://www.handsome-cong.fun/api/random-image-blob
+cover: https://cdn.donmai.us/original/04/1d/041da15cdfd73ae42728547c20e28ff8.jpg
 toc: 
 toc_number: 
 toc_style_simple: 
