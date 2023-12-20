@@ -107,3 +107,18 @@ theme: butterfly
 deploy:
   type: 'git'
   repo: 'https://github.com/Handsome-cong/handsome-cong.github.io'
+
+sitemap:
+  path: 
+    - sitemap.xml
+    - sitemap.txt
+  template: 
+  template_txt: 
+  rel: false
+  tags: true
+  categories: true
+
+nofollow:
+  enable: true
+  field: site
+  exclude:
