@@ -1,6 +1,6 @@
 ---
 publish: true
-title: EnTT源码解读【8】：EnTT中的类型标识
+title: EnTT源码解读【7】：EnTT中的类型标识
 date: 2023-12-20 14:13
 tags: EnTT
 categories: blog
@@ -29,7 +29,7 @@ abcjs:
 ## 这个功能存在的意义
 显然，C++ 中并没有完善的 RTTI 支持，对于没有 vtable 的类型而言，程序在运行时无法获取任何关于它的类型信息，而 ECS 中又需要一种办法在运行时区分 Component 的类型。
 
-## EnTT中提供的功能
+## EnTT 中提供的功能
 ### `type_info`
 这是一个用于在运行时提供类型信息的类型
 ```cpp
@@ -79,20 +79,20 @@ private:
 ```
 
 它包含三个部分：
-- `seq`：从0开始全局自增的值，每一个类型都会获取到一个唯一的值
-- `identifier`：默认情况下为一个hash值，通过类型名算出，算法为FNV1a，否则与`seq`一致
-- `alias`：默认情况下为类型名，形如：`struct my_namespace::my_struct`，否则为`""`
+- `seq`：从 0 开始全局自增的值，每一个类型都会获取到一个唯一的值
+- `identifier`：默认情况下为一个 hash 值，通过类型名算出，算法为 FNV1a，否则与 `seq` 一致
+- `alias`：默认情况下为类型名，形如 `struct my_namespace::my_struct`，否则为 `""`
 
-> 上述的默认情况下是指没有定义了`ENTT_STANDARD_CPP`宏，且编译器是clang、gunc或msvc之一。
+> 上述的默认情况下是指没有定义 `ENTT_STANDARD_CPP` 宏，且编译器是 clang、gunc 或 msvc 之一。
 >   
 > 这是因为获取类型名的功能需要预定义宏的支持：
-> - clang和gunc：`__PRETTY_FUNCTION__`
+> - clang 和 gunc：`__PRETTY_FUNCTION__`
 > - msvc：`__FUNCSIG__`
 > 
 > 该功能通过上面的预定义宏来获取模板函数名，并截取其中的模板参数部分以获取传入的模板类型名来实现。
 
 ### `type_id`
-一个用于方便获取`type_info`的函数：
+一个用于方便获取 `type_info` 的函数：
 ```cpp
 /**
  * @brief Returns the type info object associated to a given type.
@@ -122,4 +122,4 @@ template<typename Type>
 }
 ```
 
-传入的模板参数会自动*忽略引用和顶级的cv修饰符*，函数返回一个全局的`type_info`实例的引用。
+传入的模板参数会自动*忽略引用和顶级的 cv 修饰符*，函数返回一个全局的 `type_info` 实例的引用。

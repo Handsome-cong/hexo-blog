@@ -34,3 +34,6 @@ GitHub 地址: https://github.com/skypjack/entt
 
 ## TOC
 {% series %}
+
+## 关于这个系列
+EnTT 的功能众多，并不只是一个单纯的 ECS 库，它还包含了很多其它部分，比如内置的 RTTI 支持等等，这个系列仅介绍它的核心功能，既 ECS。

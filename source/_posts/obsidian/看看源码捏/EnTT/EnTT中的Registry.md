@@ -1,6 +1,6 @@
 ---
 publish: false
-title: EnTT源码解读【7】：EnTT中的Registry
+title: EnTT源码解读【X】：EnTT中的Registry
 date: 2023-12-06 17:42
 tags: EnTT
 categories: blog
@@ -26,6 +26,14 @@ aside:
 abcjs:
 ---
 # EnTT 中的 Registry
+
+registry 涉及众多，等下面的更新完了再更新 registry
+
+**WIP:**
+- [ ] Group
+- [x] Dense Map
+- [x] type_id
+
 ## 什么是 Registry
 在一般 ECS 实现里，通常会有一个*用于存储和管理所有 Entity 和 Component* 的类型，这个类型经常会以 World 命名，但 EnTT 中叫 **Registry**。
 
@@ -118,7 +126,7 @@ registry.clear<position>();
 2. 删除从指定的 `entity` 上删除 `position`，判断 `position` 是否存在，不存在不报错
 3. 删除所有 `position`
 
-### 从Entity上获取Component
+### 从 Entity 上获取 Component
 ```cpp
 const auto &cregistry = registry;
 
@@ -130,11 +138,11 @@ auto &renderable = registry.get<renderable>(entity);
 const auto [cpos, cvel] = cregistry.get<position, velocity>(entity);
 auto [pos, vel] = registry.get<position, velocity>(entity);
 ```
-也提供了`try_get`用于不确定Component是否存在的情况。
+也提供了 `try_get` 用于不确定 Component 是否存在的情况。
 
 ## registry 的基本原理
 ### 数据存储
-`registry`的字段定义如下：
+`registry` 的字段定义如下：
 ```cpp
 // src/entt/entity/fwd.hpp
 
@@ -224,14 +232,14 @@ private:
 };
 ```
 
-从上述代码可以看出，registry被分为4部分：
+从上述代码可以看出，registry 被分为 4 部分：
 - `context vars`
 - `pool_container_type pools`
 - `group_container_type groups`
 - `storage_for_type<entity_type> entities`
 
 #### vars
-`context`是一个类似于依赖注入容器的东西，可以插入任意类型的对象，也可以尝试从中获取任意类型的对象实例，也支持在插入的时候进行命名来让它可以接受多个相同类型的对象，使用实例如下：
+`context` 是一个类似于依赖注入容器的东西，可以插入任意类型的对象，也可以尝试从中获取任意类型的对象实例，也支持在插入的时候进行命名来让它可以接受多个相同类型的对象，使用实例如下：
 ```cpp
 // creates a new context variable by type and returns it
 registry.ctx().emplace<my_type>(42, 'c');
@@ -258,13 +266,13 @@ registry.ctx().erase<my_type>();
 registry.ctx().erase<my_type>("my_variable"_hs);
 ```
 
-`context`的核心是一个`dense_map` 类型的`ctx`字段，其具体类型可以简单地看作是`dense_map<uint32_t, void*>`，因此可以存储任意类型的数据。
+`context` 的核心是一个 `dense_map` 类型的 `ctx` 字段，其具体类型可以简单地看作是 `dense_map<uint32_t, void*>`，因此可以存储任意类型的数据。
 
-> 上述说法只是为了方便理解并不准确，`basic_any`还包含了类型信息、vtable、以及引用类型（所有者、读写、只读）。
+> 上述说法只是为了方便理解并不准确，`basic_any` 还包含了类型信息、vtable、以及引用类型（所有者、读写、只读）。
 
-> `dense_map`相关内容可以查看[EnTT中的Dense Map](../../blog/Hexo/看看源码捏/EnTT/EnTT中的Dense Map)
+> `dense_map` 相关内容可以查看 [EnTT中的Dense Map](../../blog/Hexo/看看源码捏/EnTT/EnTT中的Dense Map)
 
 #### pools
-`pools`的类型可以简单看作`dense_map<uint32_t, std::shared_ptr<sparse_set>>`。它里面存储了各种Component的实例，它的值`std::shared_ptr<sparse_set>>`其实指向的是各种Component对应的Storage。
+`pools` 的类型可以简单看作 `dense_map<uint32_t, std::shared_ptr<sparse_set>>`。它里面存储了各种 Component 的实例，它的值 `std::shared_ptr<sparse_set>>` 其实指向的是各种 Component 对应的 Storage。
 
-> Storage相关内容可以查看[EnTT中的Storage](../../blog/EnTT中的Storage)
+> Storage 相关内容可以查看 [EnTT中的Storage](../../blog/EnTT中的Storage)
