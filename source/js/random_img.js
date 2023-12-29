@@ -30,14 +30,21 @@ fetch(JsonApiUrl)
         return null;
     });
 
-
+/**
+ * 
+ * @param {Blob} imageBlob 
+ * @param {*} override 
+ * @returns 
+ */
 function TrySetElementStyle(imageBlob, override) {
     if (!imageBlob) {
         return;
     }
-    console.log("Image loaded.");
+    const blobSize = imageBlob.size;
     const imageUrl = URL.createObjectURL(imageBlob);
     const urlText = `url(${imageUrl})`;
+
+    console.log(`received image size: ${blobSize}`);
 
     let element = document.getElementById("page-header");
     if (element) {
