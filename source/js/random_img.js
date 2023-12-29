@@ -49,10 +49,12 @@ function TrySetElementStyle(imageBlob, override) {
     let element = document.getElementById("page-header");
     if (element) {
         if (!element.style.backgroundImage) {
+            console.log(`set image with size: ${blobSize}`);
             element.style.backgroundImage = urlText;
             written = true;
         }
         else if (written && override) {
+            console.log(`set image with size: ${blobSize}`);
             element.style.backgroundImage = urlText;
         }
     }
@@ -60,10 +62,12 @@ function TrySetElementStyle(imageBlob, override) {
     element = document.getElementById("footer");
     if (element) {
         if (!element.style.backgroundImage) {
+            console.log(`set image with size: ${blobSize}`);
             element.style.backgroundImage = urlText;
             written = true;
         }
         else if (written && override) {
+            console.log(`set image with size: ${blobSize}`);
             element.style.backgroundImage = urlText;
         }
     }
