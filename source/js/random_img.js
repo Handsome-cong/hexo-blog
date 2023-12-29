@@ -59,12 +59,12 @@ function TrySetElementStyle(imageBlob) {
     const urlText = `url(${imageUrl})`;
 
     let element = document.getElementById("page-header");
-    if (element != null) {
+    if (element != null && element.style.backgroundImage == null) {
         element.style.backgroundImage = urlText;
     }
 
     element = document.getElementById("footer");
-    if (element != null) {
+    if (element != null && element.style.backgroundImage == null) {
         element.style.backgroundImage = urlText;
     }
 }
