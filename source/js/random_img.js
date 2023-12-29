@@ -40,8 +40,8 @@ function TrySetElementStyle(imageBlob, override) {
     const urlText = `url(${imageUrl})`;
 
     let element = document.getElementById("page-header");
-    if (element != null) {
-        if (element.style.backgroundImage == null) {
+    if (element) {
+        if (!element.style.backgroundImage) {
             element.style.backgroundImage = urlText;
             written = true;
         }
@@ -51,8 +51,8 @@ function TrySetElementStyle(imageBlob, override) {
     }
 
     element = document.getElementById("footer");
-    if (element != null) {
-        if (element.style.backgroundImage == null) {
+    if (element) {
+        if (!element.style.backgroundImage) {
             element.style.backgroundImage = urlText;
             written = true;
         }
