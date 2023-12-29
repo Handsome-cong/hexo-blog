@@ -924,6 +924,7 @@ css_prefix: true
 inject:
   head:
     # - <link rel="stylesheet" href="/xxx.css">
+    - <link rel="stylesheet" href="/css/default-background.css">
   bottom:
     # - <script src="xxxx"></script>
     - <script src="/js/random_img.js"></script>
