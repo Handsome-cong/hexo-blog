@@ -21,7 +21,7 @@ fetch(JsonApiUrl)
         const blobUrl = `${BlobProxyUrl}?url=${imageUrl}`;
         const lowQualityBlobUrl = `${BlobProxyUrl}?url=${imageUrl}&quality=10&blur=true`;
 
-        UseBlobApi(lowQualityBlobUrl, false, true);
+        // UseBlobApi(lowQualityBlobUrl, false, true);
         UseBlobApi(blobUrl, true, false);
     })
     .catch(error => {
