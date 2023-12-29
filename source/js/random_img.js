@@ -32,12 +32,11 @@ fetch(JsonApiUrl)
 
 
 function TrySetElementStyle(imageBlob, override) {
-    if (imageBlob == null || currentBlob != null) {
+    if (!imageBlob) {
         return;
     }
-    currentBlob = imageBlob;
     console.log("Image loaded.");
-    const imageUrl = URL.createObjectURL(currentBlob);
+    const imageUrl = URL.createObjectURL(imageBlob);
     const urlText = `url(${imageUrl})`;
 
     let element = document.getElementById("page-header");
