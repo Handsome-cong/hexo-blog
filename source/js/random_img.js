@@ -12,6 +12,8 @@ const JsonApiUrl = "https://www.handsome-cong.fun/api/random-image"
 
 const BlobProxyUrl = "https://www.handsome-cong.fun/api/image-blob-proxy"
 
+let written = false;
+
 fetch(JsonApiUrl)
     .then(response => response.json())
     .then(async data => {
@@ -29,7 +31,7 @@ fetch(JsonApiUrl)
     });
 
 
-function TrySetElementStyle(imageBlob, force) {
+function TrySetElementStyle(imageBlob, override) {
     if (imageBlob == null || currentBlob != null) {
         return;
     }
@@ -39,21 +41,34 @@ function TrySetElementStyle(imageBlob, force) {
     const urlText = `url(${imageUrl})`;
 
     let element = document.getElementById("page-header");
-    if (element != null && (element.style.backgroundImage == null || force)) {
-        element.style.backgroundImage = urlText;
+    if (element != null) {
+        if (element.style.backgroundImage == null) {
+            element.style.backgroundImage = urlText;
+            written = true;
+        }
+        else if (written && override) {
+            element.style.backgroundImage = urlText;
+        }
     }
 
     element = document.getElementById("footer");
-    if (element != null && (element.style.backgroundImage == null || force)) {
-        element.style.backgroundImage = urlText;
+    if (element != null) {
+        if (element.style.backgroundImage == null) {
+            element.style.backgroundImage = urlText;
+            written = true;
+        }
+        else if (written && override) {
+            element.style.backgroundImage = urlText;
+        }
     }
+
 }
 
-function UseBlobApi(url, force) {
+function UseBlobApi(url, override) {
     fetch(url)
         .then(r => r.blob())
         .then(imageBlob => {
-            TrySetElementStyle(imageBlob, force);
+            TrySetElementStyle(imageBlob, override);
         })
         .catch(error => {
             console.log(error);
