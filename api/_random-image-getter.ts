@@ -170,7 +170,7 @@ export class RemoteImage {
         if (quality < 100) {
             const compressedImageBuffer = await sharp(jpegUint8Array)
             .jpeg({ quality: quality })
-            .blur(this.imageSettings.blur)
+            .blur(this.imageSettings.blur ? 4 : false)
             .toBuffer();
             jpegUint8Array = new Uint8Array(compressedImageBuffer);
         }

@@ -19,7 +19,7 @@ fetch(JsonApiUrl)
     .then(async data => {
         const imageUrl = data.url;
         const blobUrl = `${BlobProxyUrl}?url=${imageUrl}`;
-        const lowQualityBlobUrl = `${BlobProxyUrl}?url=${imageUrl}&quality=10`;
+        const lowQualityBlobUrl = `${BlobProxyUrl}?url=${imageUrl}&quality=10&blur=true`;
 
         UseBlobApi(lowQualityBlobUrl, false, true);
         UseBlobApi(blobUrl, true, false);
@@ -55,13 +55,13 @@ function TrySetElementStyle(imageBlob, override, blur) {
             if (!element.style.backgroundImage) {
                 console.log(`set image with size: ${blobSize}`);
                 element.style.backgroundImage = urlText;
-                element.style.filter = blur ? "blur(5px)" : "";
+                // element.style.filter = blur ? "blur(5px)" : "";
                 written = true;
             }
             else if (written && override) {
                 console.log(`set image with size: ${blobSize}`);
                 element.style.backgroundImage = urlText;
-                element.style.filter = blur ? "blur(5px)" : "";
+                // element.style.filter = blur ? "blur(5px)" : "";
             }
         }
     }
