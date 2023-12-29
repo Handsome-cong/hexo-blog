@@ -9,38 +9,18 @@
 //     .catch(error => console.error(error))
 
 const JsonApiUrl = "https://www.handsome-cong.fun/api/random-image"
-const BlobApiUrl = "https://www.handsome-cong.fun/api/random-image-blob"
 
-let currentBlob = null;
-
-fetch(BlobApiUrl)
-    .then(r => r.blob())
-    .then(imageBlob => {
-        console.log("Try set image from blob api.");
-        TrySetElementStyle(imageBlob);
-    })
-    .catch(error => {
-        console.log(error);
-        console.log("Failed to fetch image blob from blob api.");
-        return null;
-    })
+const BlobProxyUrl = "https://www.handsome-cong.fun/api/image-blob-proxy"
 
 fetch(JsonApiUrl)
     .then(response => response.json())
     .then(async data => {
-        const file_url = data.url;
-        let imageBlob = await fetch(file_url)
-            .then(r => r.blob())
-            .then(imageBlob => {
-                console.log("Try set image from json api.");
-                TrySetElementStyle(imageBlob);
-            })
-            .catch(error => {
-                console.log(error);
-                console.log("Failed to fetch image blob by url from json api.");
-                return null;
-            });
-        return imageBlob;
+        const imageUrl = data.url;
+        const blobUrl = `${BlobProxyUrl}?url=${imageUrl}`;
+        const lowQualityBlobUrl = `${BlobProxyUrl}?url=${imageUrl}&quality=10`;
+
+        UseBlobApi(lowQualityBlobUrl, false);
+        UseBlobApi(blobUrl, true);
     })
     .catch(error => {
         console.log(error);
@@ -49,7 +29,7 @@ fetch(JsonApiUrl)
     });
 
 
-function TrySetElementStyle(imageBlob) {
+function TrySetElementStyle(imageBlob, force) {
     if (imageBlob == null || currentBlob != null) {
         return;
     }
@@ -59,12 +39,25 @@ function TrySetElementStyle(imageBlob) {
     const urlText = `url(${imageUrl})`;
 
     let element = document.getElementById("page-header");
-    if (element != null && element.style.backgroundImage == null) {
+    if (element != null && (element.style.backgroundImage == null || force)) {
         element.style.backgroundImage = urlText;
     }
 
     element = document.getElementById("footer");
-    if (element != null && element.style.backgroundImage == null) {
+    if (element != null && (element.style.backgroundImage == null || force)) {
         element.style.backgroundImage = urlText;
     }
+}
+
+function UseBlobApi(url, force) {
+    fetch(url)
+        .then(r => r.blob())
+        .then(imageBlob => {
+            TrySetElementStyle(imageBlob, force);
+        })
+        .catch(error => {
+            console.log(error);
+            console.log("Failed to fetch image blob from blob api.");
+            return null;
+        })
 }
