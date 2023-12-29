@@ -77,12 +77,16 @@ export class ImageSettings {
     public constructor(
         public readonly ratingGroup: RatingGroup = new RatingGroup(),
         public readonly imageQuality: ImageQuality = new ImageQuality(),
+        public readonly blur: boolean = false,
     ) { }
 
     public static FromRequest(request: VercelRequest): ImageSettings {
         const ratingGroup = RatingGroup.FromRequest(request);
         const imageQuality = ImageQuality.FromRequest(request);
-        return new ImageSettings(ratingGroup, imageQuality);
+        const blurStr = request.query?.blur as string | undefined;
+        const blur = blurStr == "true";
+
+        return new ImageSettings(ratingGroup, imageQuality, blur);
     }
 }
 
@@ -164,7 +168,10 @@ export class RemoteImage {
 
         quality = ImageQuality.Validate(quality);
         if (quality < 100) {
-            const compressedImageBuffer = await sharp(jpegUint8Array).jpeg({ quality: quality }).toBuffer();
+            const compressedImageBuffer = await sharp(jpegUint8Array)
+            .jpeg({ quality: quality })
+            .blur(this.imageSettings.blur)
+            .toBuffer();
             jpegUint8Array = new Uint8Array(compressedImageBuffer);
         }
         this.quality = quality;

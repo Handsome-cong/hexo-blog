@@ -19,7 +19,7 @@ fetch(JsonApiUrl)
     .then(async data => {
         const imageUrl = data.url;
         const blobUrl = `${BlobProxyUrl}?url=${imageUrl}`;
-        const lowQualityBlobUrl = `${BlobProxyUrl}?url=${imageUrl}&quality=10`;
+        const lowQualityBlobUrl = `${BlobProxyUrl}?url=${imageUrl}&quality=10&blur=true`;
 
         UseBlobApi(lowQualityBlobUrl, false);
         UseBlobApi(blobUrl, true);
