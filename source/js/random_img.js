@@ -19,10 +19,10 @@ fetch(JsonApiUrl)
     .then(async data => {
         const imageUrl = data.url;
         const blobUrl = `${BlobProxyUrl}?url=${imageUrl}`;
-        const lowQualityBlobUrl = `${BlobProxyUrl}?url=${imageUrl}&quality=10&blur=true`;
+        const lowQualityBlobUrl = `${BlobProxyUrl}?url=${imageUrl}&quality=10`;
 
-        UseBlobApi(lowQualityBlobUrl, false);
-        UseBlobApi(blobUrl, true);
+        UseBlobApi(lowQualityBlobUrl, false, true);
+        UseBlobApi(blobUrl, true, false);
     })
     .catch(error => {
         console.log(error);
@@ -36,7 +36,7 @@ fetch(JsonApiUrl)
  * @param {*} override 
  * @returns 
  */
-function TrySetElementStyle(imageBlob, override) {
+function TrySetElementStyle(imageBlob, override, blur) {
     if (!imageBlob) {
         return;
     }
@@ -46,39 +46,32 @@ function TrySetElementStyle(imageBlob, override) {
 
     console.log(`received image size: ${blobSize}`);
 
-    let element = document.getElementById("page-header");
-    if (element) {
-        if (!element.style.backgroundImage) {
-            console.log(`set image with size: ${blobSize}`);
-            element.style.backgroundImage = urlText;
-            written = true;
-        }
-        else if (written && override) {
-            console.log(`set image with size: ${blobSize}`);
-            element.style.backgroundImage = urlText;
+    SetStyle("page-header");
+    SetStyle("footer");
+
+    function SetStyle(id) {
+        element = document.getElementById(id);
+        if (element) {
+            if (!element.style.backgroundImage) {
+                console.log(`set image with size: ${blobSize}`);
+                element.style.backgroundImage = urlText;
+                element.style.filter = blur ? "blur(5px)" : "";
+                written = true;
+            }
+            else if (written && override) {
+                console.log(`set image with size: ${blobSize}`);
+                element.style.backgroundImage = urlText;
+                element.style.filter = blur ? "blur(5px)" : "";
+            }
         }
     }
-
-    element = document.getElementById("footer");
-    if (element) {
-        if (!element.style.backgroundImage) {
-            console.log(`set image with size: ${blobSize}`);
-            element.style.backgroundImage = urlText;
-            written = true;
-        }
-        else if (written && override) {
-            console.log(`set image with size: ${blobSize}`);
-            element.style.backgroundImage = urlText;
-        }
-    }
-
 }
 
-function UseBlobApi(url, override) {
+function UseBlobApi(url, override, blur) {
     fetch(url)
         .then(r => r.blob())
         .then(imageBlob => {
-            TrySetElementStyle(imageBlob, override);
+            TrySetElementStyle(imageBlob, override, blur);
         })
         .catch(error => {
             console.log(error);
