@@ -65,7 +65,11 @@ export class ImageQuality{
     public static FromRequest(request: VercelRequest): ImageQuality {
         const qualityStr = request.query?.quality as string | undefined;
         const quality = qualityStr != undefined ? parseInt(qualityStr) : 100;
-        return new ImageQuality(quality);
+        return new ImageQuality(this.Validate(quality));
+    }
+
+    public static Validate(quality: number): number {
+        return Math.floor(Math.min(Math.max(quality, 1), 100));
     }
 }
 
@@ -152,19 +156,19 @@ export class RemoteImage {
             this.quality = 80;
         }
         this.jpegSize = jpegUint8Array.length;
+        let quality = this.imageSettings.imageQuality.quality;
         if (jpegUint8Array.length > this.threshold) {
-            console.log(`Jpeg size: ${jpegUint8Array.length}, threshold: ${this.threshold} bytes`);
-            let quality = this.threshold / jpegUint8Array.length;
+            quality = quality / 100 * this.threshold / jpegUint8Array.length;
             quality = Math.sqrt(quality) * 100;
-            quality = quality * this.imageSettings.imageQuality.quality / 100;
-            quality = Math.min(quality, 100);
-            quality = Math.max(quality, 1);
-            quality = Math.floor(quality);
-            console.log(`Compression ratio: ${quality}`);
+        }
+
+        quality = ImageQuality.Validate(quality);
+        if (quality < 100) {
             const compressedImageBuffer = await sharp(jpegUint8Array).jpeg({ quality: quality }).toBuffer();
             jpegUint8Array = new Uint8Array(compressedImageBuffer);
-            this.quality = quality;
         }
+        this.quality = quality;
+
         this.jpegSizeCompressed = jpegUint8Array.length;
         this.compressedRatio = this.jpegSizeCompressed / this.jpegSize;
         return jpegUint8Array;
