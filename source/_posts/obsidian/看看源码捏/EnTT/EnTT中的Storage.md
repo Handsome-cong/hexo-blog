@@ -30,7 +30,7 @@ abcjs:
 ## EnTT 中的 Storage 是什么
 EnTT 中的 Storage，准确地说是 `basic_storage`，是一个继承 `basic_sparse_set` 的类型，用于将各种类型的对象 (Component) 和 Entity 相关联。
 
-## 基本原理
+## Storage 的基本原理
 ### 数据存储
 既然继承 `basic_sparse_set`，自然 `basic_sparse_set` 有的它都有，除此之外，它还多了一个 `payload` 字段，用于存储关联的对象，相关定义如下：
 ```cpp

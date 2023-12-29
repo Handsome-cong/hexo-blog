@@ -40,7 +40,7 @@ abcjs:
 
 > EnTT 中 Sparse Set 的数据是否可能存在空穴依据选项而定。
 
-## EnTT 中 Sparse Set 的基本原理
+## Sparse Set 的基本原理
 
 > 注意，EnTT 中的 Sparse Set 并没有作为一个通用的数据结构而设计，是专门为存储 Entity 而存在的。
 
