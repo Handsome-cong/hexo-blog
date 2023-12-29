@@ -11,10 +11,6 @@
 const JsonApiUrl = "https://www.handsome-cong.fun/api/random-image"
 const BlobApiUrl = "https://www.handsome-cong.fun/api/random-image-blob"
 
-if (!BackgroundImageElementsExist()) {
-    return;
-}
-
 let currentBlob = null;
 
 fetch(BlobApiUrl)
@@ -59,11 +55,16 @@ function TrySetElementStyle(imageBlob) {
     }
     currentBlob = imageBlob;
     console.log("Image loaded.");
-    let imageUrl = URL.createObjectURL(currentBlob);
-    document.getElementById("page-header").style.backgroundImage = `url(${imageUrl})`
-    document.getElementById("footer").style.backgroundImage = `url(${imageUrl})`
-}
+    const imageUrl = URL.createObjectURL(currentBlob);
+    const urlText = `url(${imageUrl})`;
 
-function BackgroundImageElementsExist() {
-    document.getElementById("page-header") != null && document.getElementById("footer") != null;
+    let element = document.getElementById("page-header");
+    if (element != null) {
+        element.style.backgroundImage = urlText;
+    }
+
+    element = document.getElementById("footer");
+    if (element != null) {
+        element.style.backgroundImage = urlText;
+    }
 }
