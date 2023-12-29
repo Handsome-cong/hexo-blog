@@ -11,6 +11,10 @@
 const JsonApiUrl = "https://www.handsome-cong.fun/api/random-image"
 const BlobApiUrl = "https://www.handsome-cong.fun/api/random-image-blob"
 
+if (!BackgroundImageElementsExist()) {
+    return;
+}
+
 let currentBlob = null;
 
 fetch(BlobApiUrl)
@@ -58,4 +62,8 @@ function TrySetElementStyle(imageBlob) {
     let imageUrl = URL.createObjectURL(currentBlob);
     document.getElementById("page-header").style.backgroundImage = `url(${imageUrl})`
     document.getElementById("footer").style.backgroundImage = `url(${imageUrl})`
+}
+
+function BackgroundImageElementsExist() {
+    document.getElementById("page-header") != null && document.getElementById("footer") != null;
 }
