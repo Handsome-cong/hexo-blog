@@ -102,7 +102,7 @@ private:
 };
 ```
 
-它只包含一个用于存储`delegate`的字段，显然，它就是一个存储`delegate`的容器。
+它只包含一个用于存储 `delegate` 的字段，显然，它就是一个存储 `delegate` 的容器。
 
 它的用法：
 ```cpp
@@ -114,11 +114,11 @@ std::vector<int> vec{};
 signal2.collect([&vec](int value) { vec.push_back(value); });
 ```
 
-`sigh`只有两个公开的方法：
-- `publish`：用传入的参数来调用每个`delegate`
-- `collect`：在`publish`的基础上，将每个`delegate`的返回值作为参数调用传入的回调，若回调返回值为`bool`，且返回了`true`，则`collect`会被中断
+`sigh` 只有两个公开的方法：
+- `publish`：用传入的参数来调用每个 `delegate`
+- `collect`：在 `publish` 的基础上，将每个 `delegate` 的返回值作为参数调用传入的回调，若回调返回值为 `bool`，且返回了 `true`，则 `collect` 会被中断
 
-一个回调返回`bool`的示例：
+一个回调返回 `bool` 的示例：
 ```cpp
 struct my_collector {
     std::vector<int> vec{};
@@ -172,7 +172,7 @@ private:
 };
 ```
 
-`sink`提供了一套为`sigh`添加和删除`delegate`的方法，它们往往在一起使用：
+`sink` 提供了一套为 `sigh` 添加和删除 `delegate` 的方法，它们往往在一起使用：
 ```cpp
 entt::sigh<void(int, char)> signal;
 void foo(int, char) { /* ... */ }
@@ -204,6 +204,6 @@ sink.disconnect(&instance);
 sink.disconnect();
 ```
 
-❔为什么要单独设计一个`sink`类型
+❔为什么要单独设计一个 `sink` 类型
 
-将`sigh`和`sink`分开可以更好地区分各自的职能。`sigh`可以作为类型的私有成员存在，而`delegate`的注册功能就可以直接在公开的方法里返回一个`sink`对象来实现。
+将 `sigh` 和 `sink` 分开可以更好地区分各自的职能。`sigh` 可以作为类型的私有成员存在，而 `delegate` 的注册功能就可以直接在公开的方法里返回一个 `sink` 对象来实现。

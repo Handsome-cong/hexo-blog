@@ -31,6 +31,8 @@ abcjs:
 
 它可以在*不影响 Entity 和 Component 的情况下*，获取到二者的值或引用。它是 *EnTT 中用于获取拥有特定 Component 组合的 Entity 的工具*，在其它 ECS 库中，拥有类似功能的类型或概念一般被称为 Query。
 
+另有一个与 View 类似的侵入式工具：[Group](../../blog/EnTT中的Group)
+
 ## View 的基本使用
 一个普通的用例：
 ```cpp
@@ -109,14 +111,14 @@ private:
 在默认情况下，这里的 `Get` 和 `Exclude` 都是 `basic_storage` 类型。
 
 可见，`basic_view` 被分为三部分：
-- `pools`：存放了用于存储各个 `Get` 类型 Component 的 `basic_storage` 的指针
+- `pools`：存放了用于存储各个 `Get` 类型 Component 的 `basic_storage` 指针
 - `filter`: 存放了用于存储各个 `Exclude` 类型 Component 的 `basic_storage`，但这里实际上用的是 `basic_sparse_set` 指针
 - `view`：一个 `basic_sparse_set` 指针，实际上也是 `basic_storage`，用于驱动 `basic_view` 的遍历
 
 ### 创建与初始化
 通过上述的例子可以发现，`basic_view` 时需要的参数分为两部分：
-- 必须包含的 Component 类型
-- 必须不包含的 Component 类型
+- Get: 必须包含的 Component 类型
+- Exclude: 必须不包含的 Component 类型
 
 一般情况下，`basic_view` 通过 `basic_registry` 创建。`basic_registry` 会负责创建 `basic_view` 的实例，并通过 `basic_view` 的 `storage` 方法，将所需的各个 `basic_storage` 对象分配给创建的 `basic_view` 实例：
 
