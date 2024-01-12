@@ -1,5 +1,5 @@
 ---
-publish: false
+publish: true
 title: EnTT源码解读【12】：EnTT中的Registry
 date: 2024-01-06 17:42
 tags: EnTT
