@@ -928,6 +928,7 @@ inject:
   bottom:
     # - <script src="xxxx"></script>
     - <script src="/js/random_img.js"></script>
+    - <script src="https://kit.fontawesome.com/fe70ad84d0.js" crossorigin="anonymous"></script>
 
 # CDN
 # Don't modify the following settings unless you know how they work
