@@ -53,7 +53,7 @@ Entitas 在 dots 出现后停止维护了很长一段时间，后来恢复，但
 
 而 flecs 和 Svelto.ECS 都相当活跃，flecs 也是我原本打算使用的 ECS 库，但是在我了解到 Svelto.ECS 后，我就萌生了自己实现 ECS 的想法，主要的原因是 Svelto.ECS 的 README 中的一段话给了我灵感，  
 Svelto.ECS 中的 Archetype 是不可变的。
-> Svelto.ECS 中没有叫 Archetype 的类型，但是有概念上类型的
+> Svelto.ECS 中没有叫 Archetype 的类型，但是有概念上类似的。
 
 {% note  'fa-solid fa-quote-right' simple %}
 **Svelto.ECS** is loosely based on the **Archetype** idea. <u>*The main difference compared to any other Archetype-based model is that Svelto Archetypes are static, meaning that users cannot add or remove components at runtime.*</u> There are many design reasons behind this decision, including the fact that users are often not aware of the costs of structural changes.
