@@ -59,25 +59,25 @@ Svelto.ECS 中的 Archetype 是不可变的。
 **Svelto.ECS** is loosely based on the **Archetype** idea. <u>*The main difference compared to any other Archetype-based model is that Svelto Archetypes are static, meaning that users cannot add or remove components at runtime.*</u> There are many design reasons behind this decision, including the fact that users are often not aware of the costs of structural changes.
 {% endnote %}
 
-我并没有去细看Svelto.ECS的实现，但是这一句话点醒了我。
+我并没有去细看 Svelto.ECS 的实现，但是这一句话点醒了我。
 
-以传统的Unity开发举例，试想一下，在实际的游戏开发中很少会在运行时去动态地增删Component（指Unity的`MonoBehaviour`)，哪怕真的需要会这么做，往往也能事先确定增删的Component类型。
+以传统的 Unity 开发举例，试想一下，在实际的游戏开发中很少会在运行时去动态地增删 Component（指 Unity 的 `MonoBehaviour`)，哪怕真的需要会这么做，往往也能事先确定增删的 Component 类型。
 
-在大多数情况下，创建一个GameObject会直接使用预制体或某个已经事先创建好的原型对象完成，增删Component也大都只是对通过前面这种方式创建的对象做一些小修小改，而非从一个光秃秃的GameObject开始组装出一个完整对象。理论上，完全可以将这种仅增减少数几个Component的情况全部制成预制体的变体，来消除代码上的增减操作。
+在大多数情况下，创建一个 GameObject 会直接使用预制体或某个已经事先创建好的原型对象完成，增删 Component 也大都只是对通过前面这种方式创建的对象做一些小修小改，而非从一个光秃秃的 GameObject 开始组装出一个完整对象。理论上，完全可以将这种仅增减少数几个 Component 的情况全部制成预制体的变体，来消除代码上的增减操作。
 
-当然，Archetype和预制体是不一样的，前者只是Component（指ECS的Component）的组合，后者是Component（Unity）、对象、层级以及数据的结合，是更高一层的封装。但思想是相通的，它们都是对运行时的一类相似事务的原型。
+当然，Archetype 和预制体是不一样的，前者只是 Component（指 ECS 的 Component）的组合，后者是 Component（Unity）、对象、层级以及数据的结合，是更高一层的封装。但思想是相通的，它们都是运行时的一类相似事物的原型。
 
-因此，让Archetype不可变是完全可行的，Svelto.ECS的这种限制也为它带来了不小的性能增幅，以至于在已经有dots的情况下，还能在Unity的ECS库中占有一席之地。
+因此，让 Archetype 不可变是完全可行的，Svelto.ECS 的这种限制也为它带来了不小的性能增幅，以至于在已经有 dots 的情况下，还能在 Unity 的 ECS 库中占有一席之地。
 
-> Svelto.ECS本身并不与dots冲突，相反的，它们非常的互补，Svelto.ECS可以利用dots获取进一步的性能提升。
+> Svelto.ECS 本身并不与 dots 冲突，相反的，它们非常的互补，Svelto.ECS 可以利用 dots 获取进一步的性能提升。
 
-既然如此，为什么我不直接使用Svelto.ECS呢？
+既然如此，为什么我不直接使用 Svelto.ECS 呢？
 
-首先，因为Svelto.ECS为了在Unity下使用，它用的是.netstantard2.0标准，可以使用的C#特性很少，开发体验不好，而且我准备先从服务端写起，这将是一个命令行程序，不需要Unity的加入，那么我自然是希望能够使用最新的dotnet8和C# 12的。
+首先，因为 Svelto.ECS 为了在 Unity 下使用，它用的是.netstantard2.0 标准，可以使用的 C#特性很少，开发体验不好，而且我准备先从服务端写起，这将是一个命令行程序，不需要 Unity 的加入，那么我自然是希望能够使用最新的 dotnet8 和 C# 12 的。
 
-其次，Svelto.ECS为了既和Unity兼容，又可独立使用，它的API设计并不直观，而且缺乏文档，虽然项目介绍中说有着详尽的注释，但其实注释内容一般。
+其次，Svelto.ECS 为了既和 Unity 兼容，又可独立使用，它的 API 设计并不直观，而且缺乏文档，虽然项目介绍中说有着详尽的注释，但其实注释内容一般。
 
-于是，在以上重重因素之下，我决定自己实现一个ECS库，其名字来源于我的Minecraft服务器项目Deepslate。
+于是，在以上重重因素之下，我决定自己实现一个 ECS 库，其名字来源于我的 Minecraft 服务器项目 Deepslate。
 
-> Deepslate是Minecraft中的一种方块，中文译名为“深板岩”。
+> Deepslate 是 Minecraft 中的一种方块，中文译名为“深板岩”。  
 > ![Deepslate_JE2.png](https://zh.minecraft.wiki/images/Deepslate_JE2.png?2ce1c&format=original)
