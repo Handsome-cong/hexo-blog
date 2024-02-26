@@ -4,7 +4,7 @@ title: Deepslate.Ecs 开发日志【2】：Api
 date: 2024-02-04 22:20
 tags:
 categories: blog
-series: 
+series: Deepslate.Ecs 开发日志
 keywords:
 description:
 top_img: 
