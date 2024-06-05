@@ -1,10 +1,10 @@
 ---
 publish: true
-title: Deepslate.Ecs开发日志【0】
+title: Deepslate.Ecs 开发日志【0】
 date: 2024-02-01 19:24
 tags:
 categories: blog
-series: 
+series: Deepslate.Ecs 开发日志
 keywords:
 description:
 top_img: 
